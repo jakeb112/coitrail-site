@@ -13,7 +13,9 @@
 <meta property="og:description" content="A proposed service to record what subcontractor certificates print, track printed expiry dates and prepare reminder drafts. Pilot not open yet; demo uses fictional data.">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"COI Trail","url":"https://coitrail.com/","email":"team@getcoitrail.com","description":"Pilot in development: a proposed administrative service that would record printed details on subcontractor certificates of insurance and track printed expiry dates for small US general contractors."}</script>
-<link rel="stylesheet" href="fonts-plex/fonts.css">
+<link rel="preload" href="fonts-v8/bricolage-grotesque-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts-v8/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts-v8/fonts.css">
 <style>
   :root {
     --page: #FFFFFF;
@@ -31,7 +33,7 @@
     --warning-soft: #FFF4D6;
     --ok: #1B6B3A;
     --bad: #A1261C;
-    --font: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
     --wrap: 1200px;
   }
 
@@ -286,6 +288,16 @@
     .steps.reveal > li, .nots.reveal > li { opacity: 1 !important; transform: none !important; transition: none !important; }
   }
   .no-js .steps.reveal > li, .no-js .nots.reveal > li { opacity: 1; transform: none; }
+
+  /* v8: type */
+  :root { --display: "Bricolage Grotesque", "Hanken Grotesk", -apple-system, sans-serif; }
+  h1, h2, .contact h2 { font-family: var(--display); font-weight: 800; }
+  .hero h1 { letter-spacing: -0.045em; line-height: .98; }
+  h2 { letter-spacing: -0.035em; }
+  h3, .rec-h h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; }
+  .brand { font-family: var(--display); font-weight: 800; letter-spacing: -0.03em; font-size: 20px; }
+  .status .big { font-family: var(--display); font-weight: 800; font-size: 30px; letter-spacing: -0.03em; }
+  .num, .kv dd, .cmp td { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body class="no-js">
@@ -400,7 +412,7 @@
       <p>COI Trail is a trading name of Jake Borg.</p>
       <p class="disclaimer">Extracted from certificates as printed. Not a determination of coverage, endorsement or contract compliance.</p>
       <p>Pilot service. Demo uses fictional sample certificates only. We are not accepting real certificates or attachments yet, and the service has not been validated on real certificates.</p>
-      <p>Set in IBM Plex Sans (SIL Open Font License).</p>
+      <p>Set in Bricolage Grotesque and Hanken Grotesk (SIL Open Font License).</p>
     </div>
   </div>
 </footer>
