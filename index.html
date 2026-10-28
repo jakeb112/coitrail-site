@@ -4,597 +4,593 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>COI Trail: subcontractor certificate of insurance tracking for small contractors</title>
-<meta name="description" content="COI Trail logs the details printed on certificates of insurance you receive from subcontractors, tracks printed expiry dates and sends renewal reminders. Pilot for small US general contractors and property managers.">
+<title>COI Trail: subcontractor insurance certificate tracking (pilot)</title>
+<meta name="description" content="COI Trail is a proposed service for small US general contractors: forward subcontractors' certificates of insurance, have the printed details logged and get reminders before printed expiry dates. In development; the demo uses fictional data.">
 <link rel="canonical" href="https://coitrail.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://coitrail.com/">
-<meta property="og:title" content="COI Trail: certificate of insurance tracking for small contractors">
-<meta property="og:description" content="We log what each subcontractor COI prints, track printed expiry dates and send renewal reminders in wording you approve. Pilot; demo uses fictional data.">
+<meta property="og:title" content="COI Trail: subcontractor insurance certificate tracking (pilot)">
+<meta property="og:description" content="A proposed service that would log what each subcontractor certificate prints and remind subs before printed expiry dates. In development; demo uses fictional data.">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"COI Trail","url":"https://coitrail.com/","email":"team@getcoitrail.com","description":"Pilot administrative service that logs printed details on certificates of insurance and tracks expiry dates for small US contractors."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"COI Trail","url":"https://coitrail.com/","email":"team@getcoitrail.com","description":"Pilot in development: an administrative service that would log printed details on certificates of insurance and track printed expiry dates for small US contractors."}</script>
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
   :root {
-    --ink: #1d1d1f;
-    --ink-2: #424245;
-    --muted: #6e6e73;
-    --line: #e5e5ea;
-    --line-2: #d2d2d7;
-    --bg: #ffffff;
-    --alt: #f5f5f7;
-    --blue: #1f4e79;
-    --blue-hover: #173c5e;
-    --blue-soft: #eaf1f8;
-    --amber-ink: #7a4b00;
-    --amber-bg: #fff6e0;
-    --amber-line: #e8c46a;
-    --green-ink: #1b6b3a;
-    --red-ink: #a1261c;
-    --radius: 14px;
-    --wrap: 1120px;
-    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --bg: #f7f9fa;
+    --surface: #ecf0f2;
+    --surface-2: #e0e6e9;
+    --ink: #1f3038;
+    --muted: #4f5d64;
+    --accent: #0d7480;
+    --accent-ink: #ffffff;
+    --night: #1f3038;
+    --night-2: #2a3d46;
+    --night-ink: #f2f6f7;
+    --night-muted: #b9c6cb;
+    --display: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+    --text: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --ui: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+    --step-small: clamp(0.9375rem, 0.92rem + 0.1vw, 1rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+    --step-hero: clamp(2.6rem, 1.4rem + 4vw, 5.2rem);
+    --m: clamp(20px, 3.4vw, 48px);
+    --ease: cubic-bezier(.2, .7, .1, 1);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--font); -webkit-font-smoothing: antialiased; letter-spacing: -0.003em; }
-  a { color: var(--blue); }
-  :focus-visible { outline: 3px solid #3b82c4; outline-offset: 2px; border-radius: 4px; }
-  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 48px; }
-  @media (max-width: 720px) { .wrap { padding: 0 20px; } }
-  .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 50; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--step-body)/1.55 var(--text); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.035em; line-height: 0.95; margin: 0; }
+  h2 { font-size: var(--step-head); }
+  p { margin: 0; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; height: auto; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 10px 14px; z-index: 9; }
   .skip:focus { left: 8px; }
-  .fict { color: var(--muted); font-weight: 400; font-size: .86em; }
-
-  /* Header */
-  .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
-  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 52px; }
-  .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
-  .brand-mark { width: 26px; height: 26px; border-radius: 7px; background: var(--blue); display: grid; place-items: center; }
-  .site-header nav { display: flex; gap: 28px; }
-  .site-header nav a { color: var(--ink-2); text-decoration: none; font-size: 14px; }
-  .site-header nav a:hover { color: var(--ink); }
-  @media (max-width: 720px) { .site-header nav { gap: 16px; } .site-header nav a.opt { display: none; } }
+  .frame { padding-left: var(--m); padding-right: var(--m); }
+  .fict { font-weight: 400; color: var(--muted); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; font: 500 16px/1 var(--display); letter-spacing: -0.01em; text-decoration: none; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); transition: transform .18s var(--ease), background .18s var(--ease); }
+  .btn:hover { background: #0a5f69; }
+  .btn:active { transform: translateY(1px); }
+  .btn.light { background: var(--night-ink); color: var(--night); }
+  .btn.light:hover { background: #fff; }
 
   /* Pilot banner */
-  .pilot { background: var(--blue-soft); border-bottom: 1px solid #d3e2f1; color: #17324d; font-size: 15px; }
-  .pilot .wrap { padding-top: 11px; padding-bottom: 11px; }
-  .pilot strong { font-weight: 600; }
+  .pilot { background: var(--surface); color: var(--ink); font: 500 15px/1.45 var(--display); letter-spacing: -0.005em; padding-top: 12px; padding-bottom: 12px; }
+  .pilot strong { font-weight: 700; }
 
-  /* Type */
-  h1, h2, h3 { margin: 0; color: var(--ink); }
-  h1 { font-size: clamp(40px, 5.6vw, 66px); line-height: 1.04; letter-spacing: -0.032em; font-weight: 700; }
-  h2 { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.024em; font-weight: 700; }
-  h3 { font-size: 19px; line-height: 1.3; letter-spacing: -0.012em; font-weight: 600; }
-  .lede { font-size: clamp(18px, 1.7vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 680px; }
-  .intro { font-size: 19px; color: var(--muted); max-width: 640px; margin: 14px 0 0; }
+  /* Hero: two tones, live control on the right */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: min(92svh, 860px); background: var(--night); color: var(--night-ink); position: relative; }
+  .hero-left { display: flex; flex-direction: column; justify-content: space-between; padding: 40px var(--m) 48px; }
+  .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 18px/1 var(--display); letter-spacing: -0.02em; color: var(--night-ink); text-decoration: none; }
+  .brand-mark { width: 28px; height: 28px; background: var(--accent); display: grid; place-items: center; }
+  .top-link { font: 500 15px/1 var(--display); color: var(--night-ink); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .hero h1 { font-size: var(--step-hero); line-height: 0.92; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+  .hero h1 .ln > span { display: block; }
+  .hero-sub { margin-top: 36px; font-size: var(--step-lead); line-height: 1.45; color: var(--night-muted); max-width: 30ch; }
+  .hero-actions { margin-top: 32px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+  .hero-actions .txt { font: 500 16px/1 var(--display); color: var(--night-ink); text-underline-offset: 5px; }
+  .hero-right { background: var(--night-2); display: grid; place-items: center; padding: 64px var(--m); }
 
-  /* Buttons */
-  .actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 24px; border-radius: 999px; background: var(--blue); color: #fff; text-decoration: none; font-weight: 500; font-size: 16px; border: 1px solid var(--blue); transition: background .15s ease; }
-  .btn:hover { background: var(--blue-hover); }
-  .btn.ghost { background: transparent; color: var(--blue); }
-  .btn.ghost:hover { background: var(--blue-soft); }
+  /* Product fragments (data-ui): the product's own conventions apply inside */
+  [data-ui] { font-family: var(--ui); color: #16232a; -webkit-font-smoothing: antialiased; }
+  .reader { width: min(460px, 100%); background: #fff; border-radius: 10px; overflow: hidden; }
+  .reader-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 18px; background: #f3f6f7; border-bottom: 1px solid #dfe5e8; font-size: 14px; color: #4f5d64; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .reader-head b { color: #16232a; font-weight: 600; }
+  .cov { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cov th { text-align: left; font-weight: 600; font-size: 13px; color: #4f5d64; padding: 10px 18px 6px; }
+  .cov td { padding: 4px 18px 14px; vertical-align: middle; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cov td:last-child { width: 46%; }
+  @media (max-width: 520px) { .cov th, .cov td { padding-left: 12px; padding-right: 12px; } .cov { table-layout: fixed; } .cov th:first-child, .cov td:first-child { width: 42%; } .cov th:nth-child(2), .cov td:nth-child(2) { display: none; } .cov td { font-size: 13px; } .cov input[type=date] { font-size: 14px; padding: 6px; } .reader-head { flex-wrap: wrap; } }
+  .cov input[type=date] { font: 600 15px var(--ui); color: #16232a; border: 1px solid #b8c4ca; border-radius: 6px; padding: 7px 8px; background: #fff; width: 100%; min-width: 0; max-width: 100%; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .cov input[type=date]:hover { border-color: #0d7480; }
+  .readout { border-top: 1px solid #dfe5e8; padding: 18px 18px 20px; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .readout .days { font: 700 34px/1 var(--display); letter-spacing: -0.03em; color: #16232a; font-variant-numeric: tabular-nums; }
+  .readout .stat { margin-top: 10px; font-size: 14px; font-weight: 600; }
+  .s-future { color: #1b6b3a; } .s-soon { color: #8a5300; } .s-past { color: #a1261c; }
+  .sched { margin: 14px 0 0; padding: 0; list-style: none; font-size: 14px; color: #33434b; }
+  .sched li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-top: 1px solid #edf1f3; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .sched li span:last-child { font-variant-numeric: tabular-nums; color: #16232a; font-weight: 500; }
+  .reader-foot { padding: 10px 18px 12px; background: #f3f6f7; font-size: 14px; color: #4f5d64; }
 
-  /* Sections */
-  section { padding: 112px 0; }
-  @media (max-width: 720px) { section { padding: 72px 0; } }
-  section.tone { background: var(--alt); }
-  .center { text-align: center; }
-  .center .intro, .center .lede { margin-left: auto; margin-right: auto; }
+  /* Picture band */
+  .band { padding-top: clamp(96px, 12vw, 180px); }
+  .band figure { margin: 0; overflow: hidden; }
+  .band img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; object-position: 50% 38%; }
+  .band-cap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 16px; font: 400 var(--step-small)/1.5 var(--display); color: var(--muted); }
+  .band-cap .statement { font: 400 var(--step-lead)/1.4 var(--text); color: var(--ink); max-width: 34ch; }
 
-  /* Hero */
-  .hero { padding: 96px 0 0; text-align: center; overflow: hidden; }
-  @media (max-width: 720px) { .hero { padding-top: 56px; } }
-  .hero .lede { margin: 22px auto 0; }
-  @media (max-width: 720px) { .br-lg { display: none; } }
-  .shot { margin: 64px auto 0; max-width: 980px; }
-  .window { background: #fff; border: 1px solid var(--line-2); border-radius: var(--radius) var(--radius) 0 0; border-bottom: 0; box-shadow: 0 30px 60px -30px rgba(15, 30, 50, .28); text-align: left; overflow: hidden; }
-  .window-bar { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--line); background: #fbfbfd; font-size: 13px; color: var(--muted); }
-  .dots { display: inline-flex; gap: 6px; }
-  .dots i { width: 10px; height: 10px; border-radius: 50%; background: #d9d9de; display: block; }
-  .window-bar .title { flex: 1; text-align: center; margin-right: 46px; }
-  .shot-table { width: 100%; border-collapse: collapse; font-size: 15px; }
-  .shot-table th { text-align: left; font-size: 12.5px; font-weight: 500; color: var(--muted); padding: 12px 22px; border-bottom: 1px solid var(--line); }
-  .shot-table td { padding: 14px 22px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  .shot-table tr:last-child td { border-bottom: 0; }
-  .shot-caption { font-size: 13px; color: var(--muted); padding: 12px 22px 16px; border-top: 1px solid var(--line); background: #fbfbfd; }
-  @media (max-width: 720px) { .shot-table .hide-sm { display: none; } .shot-table th, .shot-table td { padding: 12px 14px; } }
+  /* Showcase: dark row of panels */
+  .showcase { margin-top: clamp(96px, 12vw, 180px); background: var(--night); color: var(--night-ink); padding: clamp(72px, 9vw, 120px) 0 clamp(72px, 9vw, 112px); }
+  .showcase-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: end; }
+  .showcase h2 { color: var(--night-ink); }
+  .now { min-height: 120px; }
+  .now h3 { font: 500 24px/1.2 var(--display); letter-spacing: -0.02em; color: var(--night-ink); }
+  .now p { margin-top: 8px; font-size: 17px; color: var(--night-muted); max-width: 36ch; }
+  .row { margin-top: 48px; display: flex; align-items: flex-start; gap: 48px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 12px calc(50vw - 230px) 24px; scrollbar-width: none; cursor: grab; }
+  .row::-webkit-scrollbar { display: none; }
+  .panel { flex: 0 0 auto; width: 460px; scroll-snap-align: center; background: #fff; border-radius: 10px; overflow: hidden; transform: scale(.92); transition: transform .45s var(--ease); }
+  .panel.on { transform: scale(1); }
+  .panel .ph { padding: 13px 18px; background: #f3f6f7; border-bottom: 1px solid #dfe5e8; font-size: 14px; color: #4f5d64; display: flex; justify-content: space-between; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .panel .ph b { color: #16232a; font-weight: 600; }
+  .panel .pb { padding: 16px 18px 18px; font-size: 15px; line-height: 1.5; }
+  .kv { display: grid; grid-template-columns: 128px 1fr; gap: 8px 14px; margin: 0; }
+  .kv dt { color: #5a6870; } .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .att { display: flex; gap: 12px; align-items: center; margin-top: 12px; padding: 10px 12px; border: 1px solid #dfe5e8; border-radius: 8px; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .att .ic { width: 34px; height: 42px; background: #a1261c; color: #fff; font: 700 10px/42px var(--ui); text-align: center; border-radius: 3px; }
+  .mark { background: #fff1cc; color: #7a4b00; outline: 1px solid #e3b75a; border-radius: 2px; padding: 0 1px; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .flagnote { margin-top: 12px; padding: 10px 12px; background: #fff8e6; border: 1px solid #f0d58f; border-radius: 8px; color: #6b4400; font-size: 14px; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .cmp { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cmp th, .cmp td { text-align: left; padding: 8px 0; border-bottom: 1px solid #edf1f3; vertical-align: top; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .cmp thead th { font-size: 13px; color: #5a6870; font-weight: 600; }
+  .cmp tbody th { font-weight: 400; }
+  .cmp td + td, .cmp th + th, .cmp th + td { padding-left: 12px; }
+  .mail p { margin: 0 0 9px; }
+  .mail .meta { color: #5a6870; font-size: 14px; padding-bottom: 9px; border-bottom: 1px solid #edf1f3; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .mini-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .ui-btn { font: 600 13px var(--ui); padding: 8px 12px; border-radius: 6px; border: 1px solid #b8c4ca; background: #fff; color: #16232a; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .ui-btn.primary { background: #0d7480; border-color: #0d7480; color: #fff; }
+  .ui-note { margin-top: 10px; color: #5a6870; font-size: 14px; }
+  .row-hint { margin-top: 8px; padding: 0 var(--m); text-align: center; font: 400 var(--step-small)/1.5 var(--display); color: var(--night-muted); }
 
-  /* Status (text first, colour second) */
-  .status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; white-space: nowrap; }
-  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex: none; }
-  .st-future { color: var(--green-ink); } .st-future::before { background: #34a05a; }
-  .st-soon { color: var(--amber-ink); } .st-soon::before { background: #d99a12; }
-  .st-past { color: var(--red-ink); } .st-past::before { background: #d6453a; }
-  .date { font-variant-numeric: tabular-nums; }
+  /* How it would work: pinned fragment */
+  .how { padding-top: clamp(120px, 14vw, 220px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); }
+  .how h2 { margin-bottom: 8vh; }
+  .step { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; }
+  .step p.big { font: 700 clamp(26px, 1.4rem + 1vw, 32px)/1.12 var(--display); letter-spacing: -0.025em; color: var(--muted); transition: color .3s var(--ease); max-width: 18ch; }
+  .step.on p.big { color: var(--ink); }
+  .step p.small { margin-top: 14px; font-size: var(--step-body); color: var(--ink); max-width: 38ch; }
+  .stage { position: sticky; top: 14vh; height: 72vh; background: var(--surface); display: grid; place-items: center; padding: 32px; }
+  .stage .scr { width: min(500px, 100%); background: #fff; border-radius: 10px; overflow: hidden; }
+  .scr .ph { padding: 13px 18px; background: #f3f6f7; border-bottom: 1px solid #dfe5e8; font-size: 14px; color: #4f5d64; display: flex; justify-content: space-between; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .scr .ph b { color: #16232a; font-weight: 600; }
+  .state { display: none; padding: 18px; font-size: 15px; line-height: 1.5; }
+  .stage[data-s="1"] .s1, .stage[data-s="2"] .s2, .stage[data-s="3"] .s3 { display: block; animation: in .45s var(--ease); }
+  @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .mailrow { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid #edf1f3; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .mailrow:last-child { border-bottom: 0; }
+  .mailrow .from { font-weight: 600; }
+  .mailrow .when { color: #5a6870; font-size: 14px; }
+  .mailrow .subj { color: #33434b; grid-column: 1 / -1; }
+  .pill { display: inline-block; font-size: 13px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #e3f1f2; color: #0a5f69; }
+  .pill.held { background: #fff1cc; color: #7a4b00; }
 
-  /* Steps */
-  .steps { list-style: none; margin: 64px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; counter-reset: s; }
-  .steps li { counter-increment: s; border-top: 1px solid var(--line-2); padding-top: 26px; }
-  .steps li::before { content: "0" counter(s); display: block; font-size: 15px; font-weight: 600; color: var(--blue); margin-bottom: 14px; font-variant-numeric: tabular-nums; }
-  .steps p { color: var(--ink-2); margin: 10px 0 0; }
-  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; gap: 36px; margin-top: 44px; } }
+  /* Renewal calendar: month tabs and banded rows */
+  .cal { padding-top: clamp(120px, 14vw, 220px); }
+  .cal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .cal-head h2 .soft { color: var(--muted); display: block; }
+  .cal-head h2 .full { display: block; }
+  .cal-body { margin-top: 56px; display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 24px; align-items: start; }
+  .tabs { display: flex; flex-direction: column; gap: 6px; }
+  .tab { font: inherit; text-align: left; border: 0; cursor: pointer; background: var(--surface); color: var(--ink); padding: 12px 16px; min-height: 66px; transition: background .2s var(--ease); }
+  .tab:hover { background: var(--surface-2); }
+  .tab .m { display: block; font: 700 17px/1.2 var(--display); letter-spacing: -0.01em; }
+  .tab .c { display: block; font: 400 14px/1.4 var(--display); color: var(--muted); margin-top: 2px; }
+  .tab[aria-selected="true"] { background: var(--night); color: var(--night-ink); }
+  .tab[aria-selected="true"] .c { color: var(--night-muted); }
+  .bands { display: flex; flex-direction: column; gap: 4px; }
+  .bandrow { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 18px 22px; background: var(--surface); }
+  .bandrow:nth-child(even) { background: var(--surface-2); }
+  .bandrow .d { font: 700 22px/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .bandrow .t { font: 500 18px/1.25 var(--display); letter-spacing: -0.01em; }
+  .bandrow .n { font: 400 14px/1.45 var(--display); color: var(--muted); margin-top: 3px; }
+  .bandrow .st { font: 600 14px/1.3 var(--display); text-align: right; }
+  .cal-note { margin-top: 18px; font: 400 var(--step-small)/1.5 var(--display); color: var(--muted); max-width: 62ch; }
 
-  /* Demo scene */
-  .demo-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
-  .demo-note { font-size: 15px; color: var(--ink-2); background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 28px 0 0; max-width: 760px; }
-  .app { margin-top: 36px; background: #fff; border: 1px solid var(--line-2); border-radius: var(--radius); box-shadow: 0 30px 60px -36px rgba(15, 30, 50, .25); overflow: hidden; }
-  .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 16px 20px; border-bottom: 1px solid var(--line); }
-  .filters { border: 0; margin: 0; padding: 3px; display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--alt); border-radius: 10px; }
-  .filters legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .filter-btn { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: background .15s ease, color .15s ease; min-height: 36px; }
-  .filter-btn:hover { color: var(--ink); }
-  .filter-btn[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); font-weight: 500; }
-  .filter-btn .count { color: var(--muted); font-variant-numeric: tabular-nums; }
-  .today { font-size: 13.5px; color: var(--muted); }
-  .app-body { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
-  #demo .wrap { max-width: 1240px; }
-  .row-btn { white-space: nowrap; }
-  table.coi .fict { white-space: nowrap; }
-  .list { border-right: 1px solid var(--line); min-width: 0; }
-  table.coi { width: 100%; border-collapse: collapse; font-size: 15px; }
-  table.coi caption { caption-side: bottom; text-align: left; font-size: 13px; color: var(--muted); padding: 12px 20px 16px; }
-  table.coi th { text-align: left; font-size: 12.5px; font-weight: 500; color: var(--muted); padding: 12px 20px; border-bottom: 1px solid var(--line); }
-  table.coi td { padding: 13px 20px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  table.coi tr.sel td { background: var(--blue-soft); }
-  .row-btn { font: inherit; text-align: left; background: none; border: 0; padding: 0; color: var(--ink); cursor: pointer; font-weight: 500; }
-  .row-btn:hover { color: var(--blue); }
-  .flag-tag { display: block; font-size: 12.5px; color: var(--amber-ink); margin-top: 3px; font-weight: 400; }
-  td.empty { color: var(--muted); text-align: center; padding: 40px 20px; }
-  .panel { padding: 22px 24px; min-width: 0; }
-  .panel h3 { font-size: 18px; }
-  .panel .sub { color: var(--muted); font-size: 14px; margin: 6px 0 18px; }
-  .kv { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; margin: 0 0 18px; }
-  .kv dt { color: var(--muted); }
-  .kv dd { margin: 0; }
-  table.compare { width: 100%; border-collapse: collapse; font-size: 14px; }
-  table.compare th, table.compare td { text-align: left; padding: 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-  table.compare thead th { font-size: 12px; font-weight: 500; color: var(--muted); }
-  table.compare tbody th { font-weight: 400; color: var(--ink-2); padding-right: 12px; }
-  table.compare td + td { padding-left: 12px; }
-  .na { color: var(--muted); font-style: italic; }
-  .fine { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
-  @media (max-width: 900px) {
-    .app-body { grid-template-columns: 1fr; }
-    .list { border-right: 0; border-bottom: 1px solid var(--line); }
+  /* Boundaries with pictures */
+  .bounds { padding-top: clamp(120px, 14vw, 220px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+  .bounds figure { margin: 0; }
+  .bounds .tall img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .cap { margin-top: 12px; font: 400 var(--step-small)/1.5 var(--display); color: var(--muted); }
+  .bounds h2 { }
+  .lines { margin: 40px 0 0; padding: 0; list-style: none; }
+  .lines li { padding: 20px 0; }
+  .lines h3 { font-size: clamp(22px, 1.1rem + .8vw, 28px); letter-spacing: -0.02em; line-height: 1.1; }
+  .lines p { margin-top: 8px; max-width: 46ch; }
+  .bounds .pair { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bounds .pair img, .bounds .pair video { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+  @media (max-width: 520px) { .bounds .pair { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .bounds video { display: none; } }
+
+  /* Closing: the pilot dialog, already open */
+  .close { margin-top: clamp(120px, 14vw, 220px); background: var(--accent); color: #fff; min-height: 90svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: end; padding-top: 64px; padding-bottom: 64px; }
+  .close h2 { font-size: clamp(3rem, 1rem + 4.4vw, 5.4rem); line-height: 0.92; color: #fff; }
+  .close .say { margin-top: 24px; font-size: var(--step-body); max-width: 38ch; color: #f2fafb; }
+  .dlg-wrap { align-self: center; display: grid; justify-items: center; }
+  .dlg { width: min(460px, 100%); background: #fff; border-radius: 12px; box-shadow: 0 24px 60px rgba(4, 40, 45, .35); color: #16232a; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .dlg .dh { padding: 20px 22px 6px; font: 600 18px/1.3 var(--ui); }
+  .dlg .db { padding: 10px 22px 22px; display: grid; gap: 16px; }
+  .dlg label.f { font-size: 14px; font-weight: 600; color: #33434b; display: grid; gap: 6px; }
+  .dlg input[type=text], .dlg input[type=number] { font: 15px var(--ui); padding: 11px 12px; border: 1px solid #b8c4ca; border-radius: 8px; color: #16232a; } /* taste-skill-ignore: inside a data-ui product fragment */
+  .dlg input:focus { outline: 2px solid #0d7480; outline-offset: 0; border-color: #0d7480; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; background: #eef2f4; border-radius: 8px; padding: 3px; gap: 3px; border: 0; margin: 0; }
+  .seg input { position: absolute; opacity: 0; }
+  .seg label { display: block; text-align: center; font-size: 14px; font-weight: 500; padding: 9px 6px; border-radius: 6px; cursor: pointer; color: #33434b; }
+  .seg input:checked + label { background: #fff; color: #16232a; box-shadow: 0 1px 3px rgba(0,0,0,.15); } /* taste-skill-ignore: inside a data-ui product fragment */
+  .seg input:focus-visible + label { outline: 2px solid #0d7480; }
+  .dlg .go { margin-top: 4px; width: 100%; min-height: 50px; border: 0; border-radius: 8px; background: #16232a; color: #fff; font: 600 15px var(--ui); cursor: pointer; }
+  .dlg .go:hover { background: #0d2a33; }
+  .dlg .fine { font-size: 14px; color: #4f5d64; }
+
+  /* Footer: quiet lines */
+  footer { padding-top: 22svh; padding-bottom: 30px; font: 400 15px/1.5 var(--display); color: var(--muted); }
+  .fline { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: baseline; }
+  .fline nav { display: flex; gap: 24px; }
+  .fline a { color: var(--ink); }
+  .fline .r { text-align: right; }
+  .legal { margin-top: 18px; font-size: var(--step-small); max-width: 70ch; }
+  .legal p + p { margin-top: 6px; }
+
+  /* Motion */
+  .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .rise.in { opacity: 1; transform: none; }
+  .js-off .rise { opacity: 1; transform: none; }
+  .hero h1 .ln > span { transform: translateY(105%); animation: lineup .9s var(--ease) forwards; }
+  .hero h1 .ln:nth-child(2) > span { animation-delay: .11s; }
+  .hero-fade { opacity: 0; animation: fadeup .7s var(--ease) .45s forwards; }
+  @keyframes lineup { to { transform: none; } }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .band img { transform: scale(1.06); transition: transform 1.6s var(--ease); }
+  .band.in img { transform: scale(1); }
+  @media (prefers-reduced-motion: reduce) {
+    .rise, .hero-fade, .hero h1 .ln > span { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+    .band img { transform: none; transition: none; }
+    .stage[data-s] .state { animation: none; }
+    .panel { transition: none; }
   }
-  @media (max-width: 620px) {
-    table.coi thead { display: none; }
-    table.coi, table.coi tbody, table.coi tr, table.coi td { display: block; width: 100%; }
-    table.coi tr { padding: 14px 20px; border-bottom: 1px solid var(--line); }
-    table.coi td { border: 0; padding: 3px 0; }
-    table.coi td[data-label]::before { content: attr(data-label) ": "; color: var(--muted); font-size: 13px; }
-    table.coi td.first::before { content: none; }
-    table.coi caption { display: block; width: 100%; padding: 12px 20px; border-bottom: 1px solid var(--line); }
-    .toolbar { padding: 14px 16px; }
-    .panel { padding: 20px; }
+
+  /* Phone */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .hero-right { order: -1; padding: 76px 20px 36px; min-height: 58svh; }
+    .hero-left { padding: 36px 20px 44px; gap: 40px; }
+    .hero-top { position: absolute; top: 24px; left: 20px; right: 20px; }
+    .showcase-head, .how, .bounds, .close { grid-template-columns: 1fr; }
+    .row { padding: 12px 7vw 20px; gap: 16px; }
+    .panel { width: 86vw; }
+    .how { gap: 0; }
+    .stage { position: static; height: auto; padding: 16px; margin-top: 8px; }
+    .stage .state { display: block !important; animation: none !important; }
+    .stage .state + .state { border-top: 1px solid #dfe5e8; } /* taste-skill-ignore: inside a data-ui product fragment */
+    .step p.big { font-size: 22px; color: var(--ink); }
+    .how .steps-col h2 { margin: 48px 0 0; }
+    .step { min-height: 0; padding: 28px 0; }
+    .cal-body { grid-template-columns: 1fr; }
+    .tabs { flex-direction: row; overflow-x: auto; position: sticky; top: 0; z-index: 2; background: var(--bg); padding: 6px 0; }
+    .tab { flex: 0 0 auto; min-width: 132px; }
+    .bandrow { grid-template-columns: 1fr; gap: 6px; padding: 16px; }
+    .bandrow .st { text-align: left; }
+    .close { min-height: 84svh; align-items: start; }
+    .close .dlg-wrap { align-self: end; }
+    .fline { grid-template-columns: 1fr; gap: 8px; }
+    .fline nav { flex-wrap: wrap; gap: 8px 20px; }
+    .fline .r { text-align: left; }
+    footer { padding-top: 20svh; }
   }
-
-  /* Flag + reminder */
-  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
-  @media (max-width: 900px) { .pair { grid-template-columns: 1fr; } }
-  .card { background: #fff; border: 1px solid var(--line-2); border-radius: var(--radius); padding: 26px 28px; }
-  .card h3 { margin-bottom: 8px; }
-  .card > p { color: var(--ink-2); font-size: 15.5px; margin: 0 0 16px; }
-  .card.flag { border-color: var(--amber-line); }
-  .card.flag .tag { display: inline-block; font-size: 13px; font-weight: 600; color: var(--amber-ink); margin-bottom: 10px; }
-  .flag-grid { display: grid; grid-template-columns: auto 1fr; gap: 9px 18px; font-size: 14.5px; margin: 0 0 16px; }
-  .flag-grid dt { color: var(--muted); }
-  .flag-grid dd { margin: 0; }
-  .mono { font-family: var(--mono); font-size: 14px; }
-  mark { background: var(--amber-bg); color: var(--amber-ink); outline: 1px solid var(--amber-line); border-radius: 3px; padding: 0 2px; }
-  .card ol { margin: 6px 0 14px; padding-left: 20px; font-size: 14.5px; color: var(--ink-2); }
-  .review-state { display: inline-block; font-size: 13.5px; color: var(--amber-ink); font-weight: 500; }
-  .email { background: var(--alt); border-radius: 10px; padding: 18px 20px; font-size: 14.5px; }
-  .email p { margin: 0 0 10px; }
-  .email p:last-child { margin: 0; }
-  .email-meta { color: var(--muted); font-size: 13.5px; border-bottom: 1px solid var(--line-2); padding-bottom: 10px; }
-  .note-small { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; }
-
-  /* Tracker */
-  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 64px; align-items: center; }
-  @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 40px; } }
-  .split p { color: var(--ink-2); }
-  .sheet { background: #fff; border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; box-shadow: 0 24px 48px -32px rgba(15, 30, 50, .25); }
-  .sheet-bar { font-size: 13px; color: var(--muted); padding: 10px 14px; background: #fbfbfd; border-bottom: 1px solid var(--line); display: flex; gap: 10px; }
-  .sheet-bar b { color: var(--ink); font-weight: 500; }
-  .sheet-scroll { overflow-x: auto; }
-  .sheet table { border-collapse: collapse; font-size: 13px; min-width: 520px; width: 100%; }
-  .sheet th { background: var(--blue); color: #fff; font-weight: 500; text-align: left; padding: 8px 10px; white-space: nowrap; }
-  .sheet td { padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  .sheet tr.r-soon td { background: #fff4d6; }
-  .sheet tr.r-past td { background: #fbe1df; }
-  .sheet .calc { color: var(--ink-2); font-variant-numeric: tabular-nums; }
-  .sheet-cap { font-size: 12.5px; color: var(--muted); padding: 10px 14px; }
-
-  /* Boundaries */
-  .bounds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; margin-top: 56px; }
-  .bounds div { border-top: 1px solid var(--line-2); padding-top: 24px; }
-  .bounds p { color: var(--ink-2); margin: 10px 0 0; }
-  @media (max-width: 860px) { .bounds { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; } }
-
-  /* Contact */
-  .contact h2 { font-size: clamp(30px, 4vw, 48px); }
-  .contact .mail { display: inline-block; margin-top: 22px; font-size: clamp(20px, 2.4vw, 26px); font-weight: 500; text-decoration: none; }
-  .contact .mail:hover { text-decoration: underline; }
-
-  /* Footer */
-  footer { background: var(--alt); border-top: 1px solid var(--line); padding: 40px 0 48px; font-size: 13px; color: var(--muted); }
-  footer p { margin: 0 0 8px; max-width: 760px; }
-  footer .foot-brand { color: var(--ink); font-weight: 600; font-size: 14px; margin-bottom: 12px; }
-  footer a { color: var(--ink-2); }
 </style>
 </head>
-<body>
+<body class="js-off">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="COI Trail home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="12" height="14" rx="1.5" stroke="#fff" stroke-width="1.6"/><path d="M6 6h6M6 9h6M6 12h3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </span>
-      COI Trail
-    </a>
-    <nav aria-label="Primary">
-      <a href="#demo">Demo</a>
-      <a href="#template">Free tracker</a>
-      <a href="#how" class="opt">What we do</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<div class="pilot frame" role="note">
+  <strong>Pilot service.</strong> Demo uses fictional sample certificates only. We are not accepting real certificates or attachments yet, and the service has not been validated on real certificates.
+</div>
+
+<header class="hero" id="top">
+  <div class="hero-left">
+    <div class="hero-top">
+      <a class="brand" href="#top" aria-label="COI Trail home">
+        <span class="brand-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="12" height="14" rx="1" stroke="#fff" stroke-width="1.8"/><path d="M6 6h6M6 9h6M6 12h3.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        COI Trail
+      </a>
+      <a class="top-link" href="mailto:team@getcoitrail.com">Email the team</a>
+    </div>
+    <div>
+      <h1 aria-label="COI tracking, done for you."><span class="ln" aria-hidden="true"><span>COI tracking,</span></span><span class="ln" aria-hidden="true"><span>done for you.</span></span></h1>
+      <p class="hero-sub hero-fade">We're building a service for small US contractors: you forward the certificates your subs send, we log what each one prints and remind subs before it expires.</p>
+      <div class="hero-actions hero-fade">
+        <a class="btn light" href="#showcase">See how it would work</a>
+        <a class="txt" href="coi-tracker-template.xlsx" download>Free Excel tracker</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="reader" data-ui role="group" aria-label="Sample certificate you can change">
+      <div class="reader-head"><span><b>Lanternfly Glazing Co.</b> (fictional)</span><span>Workers' comp</span></div>
+      <table class="cov">
+        <thead><tr><th scope="col">Policy number</th><th scope="col">Policy eff</th><th scope="col"><label for="exp">Policy exp</label></th></tr></thead>
+        <tbody><tr><td>WC-LG-90215</td><td id="eff">11/05/2025</td><td><input type="date" id="exp" value="2026-11-05"></td></tr></tbody>
+      </table>
+      <div class="readout" aria-live="polite">
+        <div class="days" id="days">8 days left</div>
+        <div class="stat s-soon" id="stat">Printed expiry date: within 30 days</div>
+        <ul class="sched" id="sched"></ul>
+      </div>
+      <div class="reader-foot" id="today">Fictional sample certificate</div>
+    </div>
   </div>
 </header>
 
-<div class="pilot" role="note">
-  <div class="wrap">
-    <strong>Pilot service.</strong> Demo uses fictional sample certificates only. We are not accepting real certificates or attachments yet, and the service has not been validated on real certificates.
-  </div>
-</div>
-
 <main id="main">
-  <div class="hero" id="top">
-    <div class="wrap">
-      <h1>Stop chasing subs for<br class="br-lg"> insurance certificates.</h1>
-      <p class="lede">COI Trail logs what each certificate prints, tracks the printed expiry dates and sends renewal reminders to your subs in wording you approve, so small GCs and property managers can stop chasing paperwork in spreadsheets.</p>
-      <div class="actions">
-        <a class="btn" href="#demo">See the demo</a>
-        <a class="btn ghost" href="#template">Free tracker template</a>
-      </div>
-      <div class="shot" aria-label="Preview of the fictional demo tracker">
-        <div class="window">
-          <div class="window-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">Certificates · Example Builders Group (fictional)</span></div>
-          <table class="shot-table">
-            <thead><tr><th scope="col">Insured (subcontractor)</th><th scope="col" class="hide-sm">Line</th><th scope="col" class="hide-sm">Printed expiry</th><th scope="col">Status</th></tr></thead>
-            <tbody id="shot-body"></tbody>
-          </table>
-          <div class="shot-caption">Fictional sample data. Status is calculated only from the printed expiry date.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section id="how" aria-labelledby="how-h">
-    <div class="wrap">
-      <h2 id="how-h">How it works</h2>
-      <p class="intro">An administrative service: we record and remind. Decisions about insurance stay with you and your advisers.</p>
-      <ol class="steps">
-        <li>
-          <h3>Forward the certificates (once the pilot opens)</h3>
-          <p>Send the COIs your subs give you to a dedicated inbox. No new software for your subs to learn.</p>
-        </li>
-        <li>
-          <h3>We log what's printed</h3>
-          <p>Insured, insurers and NAIC numbers, policy numbers, effective and expiry dates, printed limits and the certificate holder. Fields the software can't read confidently are flagged and held back, never shown as final.</p>
-        </li>
-        <li>
-          <h3>Track dates and send reminders</h3>
-          <p>See printed expiry dates at a glance, view your own entered requirements beside the printed values, and approve the reminder wording sent to subs ahead of renewal.</p>
-        </li>
-      </ol>
+  <section class="band frame" aria-labelledby="band-h">
+    <h2 id="band-h" class="vh">The trades behind every certificate</h2>
+    <figure>
+      <img src="assets/icarus-empire-state-building.jpg" width="1600" height="1255" alt="A steelworker hangs from a cable high above Manhattan during construction of the Empire State Building, 1930.">
+    </figure>
+    <div class="band-cap">
+      <p class="statement">Every sub on your job carries a certificate with a printed expiry date. Somebody has to notice when it runs out.</p>
+      <span>Lewis Hine, “Icarus, Empire State Building”, 1930</span>
     </div>
   </section>
 
-  <section id="demo" class="tone" aria-labelledby="demo-h">
-    <div class="wrap">
-      <div class="demo-head">
-        <div>
-          <h2 id="demo-h">Interactive demo</h2>
-          <p class="intro">Eight sample certificates. Every company, insurer and policy number below is invented.</p>
+  <section class="showcase" id="showcase" aria-labelledby="show-h">
+    <div class="frame showcase-head">
+      <h2 id="show-h">One certificate, start to finish.</h2>
+      <div class="now" aria-live="polite"><h3 id="now-t">It arrives in one inbox</h3><p id="now-p">Subs keep sending certificates the way they do today. You'd forward them to a single address.</p></div>
+    </div>
+    <div class="row" id="row" tabindex="0" role="region" aria-label="Sample screens. Use the arrow keys or scroll sideways.">
+      <article class="panel" data-ui data-t="It arrives in one inbox" data-p="Subs keep sending certificates the way they do today. You'd forward them to a single address.">
+        <div class="ph"><b>Inbox</b><span>certificates@ (pilot)</span></div>
+        <div class="pb">
+          <dl class="kv"><dt>From</dt><dd>office@lanternfly-glazing.example</dd><dt>Subject</dt><dd>Updated COI, 2025-26</dd><dt>Forwarded by</dt><dd>Example Builders Group (fictional)</dd></dl>
+          <div class="att"><span class="ic">PDF</span><span>COI_Lanternfly_2025.pdf<br><span style="color:#5a6870">1 page · fictional sample</span></span></div>
+        </div>
+      </article>
+      <article class="panel" data-ui data-t="We log what it prints" data-p="Each field is copied exactly as printed: insured, insurer, policy, dates and limits.">
+        <div class="ph"><b>Logged as printed</b><span>Lanternfly Glazing Co.</span></div>
+        <div class="pb"><dl class="kv"><dt>Insured</dt><dd>Lanternfly Glazing Co. (fictional)</dd><dt>Insurer</dt><dd>Make-Believe Specialty (fictional)</dd><dt>NAIC</dt><dd>99904 (sample)</dd><dt>Policy</dt><dd>WC-LG-90215</dd><dt>Effective</dt><dd>11/05/2025</dd><dt>Expires</dt><dd>11/05/2026</dd><dt>E.L. each accident</dt><dd>$1,000,000</dd></dl></div>
+      </article>
+      <article class="panel" data-ui data-t="Unclear fields are held" data-p="If a character could be read two ways, it waits for a person instead of being guessed.">
+        <div class="ph"><b>Held for review</b><span>Bluebird Drywall &amp; Paint</span></div>
+        <div class="pb"><dl class="kv"><dt>Field</dt><dd>Policy number</dd><dt>Read as</dt><dd>BA-44<span class="mark">O</span>7-2219</dd><dt>Shown to you</dt><dd>Not yet</dd></dl>
+          <div class="flagnote">Fifth character could be the letter O or the digit 0. The scan is faint there.</div>
+          <div class="mini-actions"><span class="ui-btn">It's the letter O</span><span class="ui-btn">It's the digit 0</span></div></div>
+      </article>
+      <article class="panel" data-ui data-t="Your terms, beside the print" data-p="Your own requirements sit next to the printed values. The decision stays with you.">
+        <div class="ph"><b>Side by side</b><span>Northfork Plumbing Inc.</span></div>
+        <div class="pb"><table class="cmp"><thead><tr><th scope="col">Item</th><th scope="col">Printed</th><th scope="col">Your entry</th></tr></thead>
+          <tbody><tr><th scope="row">E.L. each accident</th><td>$500,000</td><td>$1,000,000</td></tr><tr><th scope="row">E.L. disease, policy limit</th><td>$500,000</td><td>$1,000,000</td></tr></tbody></table>
+          <p class="ui-note">Northfork Plumbing Inc. and all values are fictional. No verdict is shown.</p></div>
+      </article>
+      <article class="panel" data-ui data-t="A reminder, in your words" data-p="Before the printed date, the sub is asked for an updated certificate. Nothing goes until you approve the wording.">
+        <div class="ph"><b>Draft reminder</b><span>Awaiting your approval</span></div>
+        <div class="pb mail"><p class="meta">To: office@lanternfly-glazing.example<br>Subject: Updated certificate of insurance needed</p>
+          <p>Hi Lanternfly Glazing team,</p><p>The certificate we have on file for your workers' compensation policy shows a printed expiry date of Nov 5, 2026. Please send an updated certificate before that date.</p><p>Example Builders Group (fictional), via COI Trail</p>
+          <div class="mini-actions"><span class="ui-btn primary">Approve wording</span><span class="ui-btn">Edit</span></div></div>
+      </article>
+      <article class="panel" data-ui data-t="Then it's just a date" data-p="Each certificate becomes one line you can sort by its printed expiry date.">
+        <div class="ph"><b>Tracker</b><span>8 fictional subs</span></div>
+        <div class="pb"><table class="cmp"><thead><tr><th scope="col">Sub</th><th scope="col">Line</th><th scope="col">Printed expiry</th></tr></thead>
+          <tbody><tr><td>Lanternfly Glazing</td><td>WC</td><td>11/05/2026</td></tr><tr><td>Bluebird Drywall</td><td>Auto</td><td>11/15/2026</td></tr><tr><td>Copperleaf Electric</td><td>GL</td><td>11/20/2026</td></tr><tr><td>Pinecrest HVAC</td><td>Auto</td><td>01/15/2027</td></tr></tbody></table></div>
+      </article>
+    </div>
+    <p class="row-hint">Drag or scroll sideways. All companies and values are fictional.</p>
+  </section>
+
+  <section class="how frame" id="how" aria-labelledby="how-h">
+    <div class="steps-col">
+      <h2 id="how-h">How it would work</h2>
+      <div class="step on" data-s="1"><p class="big">Forward each certificate as it arrives.</p><p class="small">Once the pilot opens, your subs' certificates go to one inbox. Nothing new for your subs to learn.</p></div>
+      <div class="step" data-s="2"><p class="big">Then we log what it prints.</p><p class="small">Insured, insurers, policy numbers, dates and printed limits, exactly as printed. Anything unclear is held for a person.</p></div>
+      <div class="step" data-s="3"><p class="big">Then reminders go out in your wording.</p><p class="small">Before a printed expiry date, the sub is asked for an updated certificate, worded the way you approved.</p></div>
+    </div>
+    <div class="stage" id="stage" data-s="1" aria-hidden="true">
+      <div class="scr" data-ui>
+        <div class="ph"><b>COI Trail</b><span>Example Builders Group (fictional)</span></div>
+        <div class="state s1">
+          <div class="mailrow"><span class="from">office@lanternfly-glazing.example</span><span class="when">9:14</span><span class="subj">Updated COI, 2025-26 · 1 PDF</span></div>
+          <div class="mailrow"><span class="from">admin@bluebird-drywall.example</span><span class="when">8:52</span><span class="subj">Certificate of insurance attached · 1 PDF</span></div>
+          <div class="mailrow"><span class="from">info@copperleaf-electric.example</span><span class="when">Mon</span><span class="subj">COI for the Harbor Point job · 1 PDF</span></div>
+        </div>
+        <div class="state s2">
+          <dl class="kv"><dt>Insured</dt><dd>Lanternfly Glazing Co. (fictional)</dd><dt>Policy</dt><dd>WC-LG-90215</dd><dt>Effective</dt><dd>11/05/2025</dd><dt>Expires</dt><dd>11/05/2026</dd><dt>E.L. each accident</dt><dd>$1,000,000</dd></dl>
+          <p style="margin-top:12px"><span class="pill">6 fields logged</span> <span class="pill held">0 held</span></p>
+        </div>
+        <div class="state s3 mail">
+          <p class="meta">To: office@lanternfly-glazing.example<br>Subject: Updated certificate of insurance needed</p>
+          <p>The certificate we have on file for your workers' compensation policy shows a printed expiry date of Nov 5, 2026. Please send an updated certificate before that date.</p>
+          <div class="mini-actions"><span class="ui-btn primary">Approve wording</span><span class="ui-btn">Edit</span></div>
         </div>
       </div>
-      <p class="demo-note">Status is calculated only from the printed expiry date compared with today's date. It says nothing about whether a policy meets any requirement.</p>
+    </div>
+  </section>
 
-      <div class="app">
-        <div class="toolbar">
-          <fieldset class="filters" aria-labelledby="filter-label">
-            <legend id="filter-label">Filter by status</legend>
-            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All <span class="count" data-count="all"></span></button>
-            <button type="button" class="filter-btn" data-filter="future" aria-pressed="false">Printed expiry: future <span class="count" data-count="future"></span></button>
-            <button type="button" class="filter-btn" data-filter="soon" aria-pressed="false">Within 30 days <span class="count" data-count="soon"></span></button>
-            <button type="button" class="filter-btn" data-filter="past" aria-pressed="false">Passed <span class="count" data-count="past"></span></button>
-          </fieldset>
-          <span class="today" id="today-label"></span>
-        </div>
-        <div class="app-body">
-          <div class="list">
-            <table class="coi">
-              <caption id="table-caption">Fictional sample data.</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Insured (subcontractor)</th>
-                  <th scope="col">Line</th>
-                  <th scope="col">Printed expiry</th>
-                  <th scope="col">Printed expiry status</th>
-                </tr>
-              </thead>
-              <tbody id="coi-body"></tbody>
-            </table>
-            <p id="live" class="visually-hidden" aria-live="polite"></p>
-          </div>
-          <div class="panel" id="detail" tabindex="-1" aria-live="polite"></div>
-        </div>
-      </div>
+  <section class="cal frame" id="calendar" aria-labelledby="cal-h">
+    <div class="cal-head rise">
+      <h2 id="cal-h"><span class="soft">Printed expiry dates,</span><span class="full">month by month.</span></h2>
+      <a class="btn" href="coi-tracker-template.xlsx" download>Download the free tracker</a>
+    </div>
+    <div class="cal-body rise">
+      <div class="tabs" role="tablist" aria-label="Months" id="tabs"></div>
+      <div class="bands" role="tabpanel" id="bands"></div>
+    </div>
+    <p class="cal-note">Eight fictional sample certificates. Status compares the printed expiry date with today's date and says nothing about whether a policy meets any requirement. The free Excel tracker does the same for your own list, with no sign-up.</p>
+  </section>
 
+  <section class="bounds frame" id="scope" aria-labelledby="scope-h">
+    <figure class="tall rise">
+      <img src="assets/lewis-hine-tri-nytovaci.jpg" width="1258" height="1600" loading="lazy" alt="Three riveters at work on the steel frame of the Empire State Building, about 1931.">
+      <figcaption class="cap">Lewis Hine, riveters on the Empire State Building, about 1931</figcaption>
+    </figure>
+    <div class="rise">
+      <h2 id="scope-h">We record. You decide.</h2>
+      <ul class="lines">
+        <li><h3>No coverage advice</h3><p>We don't interpret policies, endorsements or contract terms, or tell you whether a policy is enough. A certificate is a summary; the policy itself governs.</p></li>
+        <li><h3>No broker recommendations</h3><p>We don't recommend brokers, carriers or products, and we aren't paid by any of them.</p></li>
+        <li><h3>No pass/fail judgements</h3><p>We show your entered requirements next to the printed values. Deciding what that means, and whether a sub can work, is up to you.</p></li>
+      </ul>
       <div class="pair">
-        <div class="card flag" aria-labelledby="flag-h">
-          <span class="tag">Held for review</span>
-          <h3 id="flag-h">Flagged for review: example</h3>
-          <p>Some fields can't be read with confidence. These are held back until a person confirms them against the certificate image.</p>
-          <dl class="flag-grid">
-            <dt>Insured</dt><dd>Bluebird Drywall &amp; Paint LLC <span class="fict">(fictional)</span></dd>
-            <dt>Line</dt><dd>Auto</dd>
-            <dt>Field</dt><dd>Policy number</dd>
-            <dt>Extracted value</dt><dd class="mono">BA-44<mark>O</mark>7-2219</dd>
-            <dt>Why it was flagged</dt><dd>Fifth character could be the letter "O" or the digit "0"; the scan is faint at that point.</dd>
-            <dt>Shown to customer</dt><dd>Not yet. Held until a reviewer confirms.</dd>
-          </dl>
-          <p><strong>What the reviewer does:</strong></p>
-          <ol>
-            <li>Compares the value with the certificate image as printed.</li>
-            <li>Confirms or corrects the characters, or asks you for a clearer copy.</li>
-            <li>Records who reviewed it and when.</li>
-          </ol>
-          <span class="review-state">Review state: awaiting a person</span>
-        </div>
-
-        <div class="card" aria-labelledby="rem-h">
-          <h3 id="rem-h">Renewal reminder: sample draft</h3>
-          <p>Drafted when a printed expiry date is within 30 days. Nothing is sent until you approve the wording; after that, reminders follow your approved template.</p>
-          <div class="email">
-            <p class="email-meta"><strong>To:</strong> office@lanternfly-glazing.example <span class="fict">(fictional)</span><br>
-            <strong>Subject:</strong> Updated certificate of insurance needed: Example Builders Group</p>
-            <p>Hi Lanternfly Glazing team,</p>
-            <p>The certificate of insurance we have on file for your workers' compensation policy shows a printed expiry date of <strong>Nov 5, 2026</strong>. Please send an updated certificate showing the renewed policy to this address before that date.</p>
-            <p>If you've already sent it, thank you, and please ignore this note.</p>
-            <p>Example Builders Group <span class="fict">(fictional)</span>, via COI Trail</p>
-          </div>
-          <p class="note-small">Reminders only ask for an updated certificate. They never comment on whether a policy is adequate.</p>
-        </div>
+        <figure>
+          <video src="assets/rotating-timelapse-of-the-construction-site-outside.webm" poster="assets/rotating-timelapse-of-the-construction-site-outside-poster.jpg" muted loop playsinline autoplay preload="metadata" width="548" height="480" aria-label="Timelapse of a hospital building site in Alabama, 2024, the glass facade finished and the ground still bare."></video>
+          <figcaption class="cap">Building site, UAB Medical West, Alabama, 2024</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/empire-state-building.jpg" width="1600" height="1272" loading="lazy" alt="A steelworker rests on a girder high above Midtown Manhattan, with the Chrysler Building behind him, about 1930.">
+          <figcaption class="cap">Lewis Hine, Empire State Building, about 1930</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section id="template" aria-labelledby="tpl-h">
-    <div class="wrap split">
-      <div>
-        <h2 id="tpl-h">Free: subcontractor COI expiry tracker</h2>
-        <p class="intro" style="color:var(--ink-2)">Prefer to do it yourself? Download our spreadsheet: one row per policy line, automatic days-to-expiry, colour-coded upcoming and passed dates, and a renewal-reminder email template. No sign-up, no email needed. Works in Excel and Google Sheets.</p>
-        <div class="actions" style="justify-content:flex-start">
-          <a class="btn" href="coi-tracker-template.xlsx" download>Download the tracker (.xlsx)</a>
-        </div>
-        <p class="note-small">Example rows are fictional. Status is date arithmetic only and says nothing about whether a policy meets any requirement.</p>
-      </div>
-      <figure class="sheet" style="margin:0" aria-label="Preview of the Tracker sheet in the downloadable workbook">
-        <div class="sheet-bar"><span>coi-tracker-template.xlsx</span><span>·</span><b>Tracker</b></div>
-        <div class="sheet-scroll">
-          <table>
-            <thead><tr><th>Subcontractor</th><th>Policy line</th><th>Printed expiry date</th><th>Days to printed expiry</th><th>Status (dates only)</th></tr></thead>
-            <tbody id="sheet-body"></tbody>
-          </table>
-        </div>
-        <figcaption class="sheet-cap">The three example rows from the workbook, with its formulas evaluated for today (reminder window: 30 days).</figcaption>
-      </figure>
+  <section class="close frame" id="contact" aria-labelledby="close-h">
+    <div>
+      <h2 id="close-h">Tell us about your subs.</h2>
+      <p class="say">The button opens an email to the team with your answers filled in. Nothing is sent until you press send, and nothing is being sold yet.</p>
     </div>
-  </section>
-
-  <section id="scope" class="tone" aria-labelledby="scope-h">
-    <div class="wrap">
-      <h2 id="scope-h">What we don't do</h2>
-      <p class="intro">COI Trail records what a certificate prints and keeps track of dates. It is not insurance advice.</p>
-      <div class="bounds">
-        <div>
-          <h3>No coverage advice</h3>
-          <p>We don't interpret policies, endorsements or contract terms, or tell you whether a policy is enough. A certificate is a summary; the policy itself governs.</p>
+    <div class="dlg-wrap">
+      <form class="dlg" data-ui id="pilot-form" action="mailto:team@getcoitrail.com" method="get">
+        <div class="dh">Interested in the pilot</div>
+        <div class="db">
+          <label class="f">Company<input type="text" name="company" id="f-co" placeholder="e.g. Example Builders Group" autocomplete="organization"></label>
+          <label class="f">Active subs you collect certificates from<input type="number" name="subs" id="f-subs" min="1" max="2000" value="60" inputmode="numeric"></label>
+          <fieldset class="seg">
+            <legend class="vh">You are a</legend>
+            <input type="radio" name="kind" id="k-gc" value="General contractor" checked><label for="k-gc">General contractor</label>
+            <input type="radio" name="kind" id="k-pm" value="Property manager"><label for="k-pm">Property manager</label>
+          </fieldset>
+          <button class="go" type="submit">Write to the team</button>
+          <p class="fine">Opens your email app. Or write to team@getcoitrail.com.</p>
         </div>
-        <div>
-          <h3>No broker recommendations</h3>
-          <p>We don't recommend brokers, carriers or products, and we aren't paid by any of them.</p>
-        </div>
-        <div>
-          <h3>No pass/fail judgements</h3>
-          <p>We show your entered requirements next to the printed values. Deciding what that means, and whether a sub can work, is up to you.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="contact center" aria-labelledby="contact-h">
-    <div class="wrap">
-      <h2 id="contact-h">Talk to us</h2>
-      <p class="intro">We're running a small pilot with general contractors and property managers. If you collect COIs from subs and want to try it, email us.</p>
-      <a class="mail" href="mailto:team@getcoitrail.com">team@getcoitrail.com</a>
+      </form>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p class="foot-brand">COI Trail</p>
-    <p><a href="mailto:team@getcoitrail.com">team@getcoitrail.com</a></p>
-    <p>COI Trail is a trading name of Jake Borg.</p>
+<footer class="frame">
+  <div class="fline">
+    <span>COI Trail, a pilot in development</span>
+    <nav aria-label="Footer"><a href="#showcase">How it works</a><a href="#calendar">Free tracker</a><a href="mailto:team@getcoitrail.com">team@getcoitrail.com</a></nav>
+    <span class="r">© 2026 · COI Trail is a trading name of Jake Borg.</span>
+  </div>
+  <div class="legal">
     <p class="disclaimer">Extracted from certificates as printed. Not a determination of coverage, endorsement or contract compliance.</p>
     <p>Pilot service. Demo uses fictional sample certificates only. We are not accepting real certificates or attachments yet, and the service has not been validated on real certificates.</p>
+    <p>Photographs: Lewis Hine, “Icarus, Empire State Building” (1930) and “Empire State Building” (about 1930), The Metropolitan Museum of Art, CC0, via Wikimedia Commons; Lewis Hine, riveters on the Empire State Building (about 1931), public domain, via Wikimedia Commons. Video: rotating timelapse of the construction site outside UAB Medical West (2024), public domain, via Wikimedia Commons.</p>
   </div>
 </footer>
 
 <script>
 (function () {
-  // Fictional sample certificates. All names, insurers, NAIC codes and policy numbers are invented.
-  var HOLDER = "Example Builders Group (fictional), 100 Sample Way, Anytown, US";
-  var DATA = [
-    { id: 1, insured: "Ridgeline Framing Co.", line: "GL", exp: "2027-03-31", eff: "2026-03-31",
-      insurer: "Imaginary Mutual Insurance Co.", naic: "99901", policy: "GL-RF-100482",
-      printed: { "Each occurrence": "$1,000,000", "General aggregate": "$2,000,000" },
-      req: { "Each occurrence": "$1,000,000", "General aggregate": "$2,000,000" } },
-    { id: 2, insured: "Bluebird Drywall & Paint LLC", line: "Auto", exp: "2026-11-15", eff: "2025-11-15",
-      insurer: "Placeholder Casualty Co.", naic: "99902", policy: "BA-44O7-2219 (flagged)", flagged: true,
-      printed: { "Combined single limit": "$1,000,000" },
-      req: { "Combined single limit": "$1,000,000" } },
-    { id: 3, insured: "Northfork Plumbing Inc.", line: "WC", exp: "2026-10-12", eff: "2025-10-12",
-      insurer: "Storybook Workers Insurance Co.", naic: "99903", policy: "WC-NP-77310",
-      printed: { "E.L. each accident": "$500,000", "E.L. disease, policy limit": "$500,000" },
-      req: { "E.L. each accident": "$1,000,000", "E.L. disease, policy limit": "$1,000,000" } },
-    { id: 4, insured: "Copperleaf Electric", line: "GL", exp: "2026-11-20", eff: "2025-11-20",
-      insurer: "Imaginary Mutual Insurance Co.", naic: "99901", policy: "GL-CE-204118",
-      printed: { "Each occurrence": "$1,000,000", "General aggregate": "$2,000,000" },
-      req: { "Each occurrence": "$1,000,000", "General aggregate": "$2,000,000" } },
-    { id: 5, insured: "Sandhill Concrete Partners", line: "Umbrella", exp: "2027-06-30", eff: "2026-06-30",
-      insurer: "Make-Believe Specialty Insurance Co.", naic: "99904", policy: "UMB-SC-5521",
-      printed: { "Each occurrence": "$5,000,000", "Aggregate": "$5,000,000" },
-      req: { "Each occurrence": "$5,000,000", "Aggregate": "$5,000,000" } },
-    { id: 6, insured: "Tumbleweed Roofing LLC", line: "GL", exp: "2026-09-30", eff: "2025-09-30",
-      insurer: "Placeholder Casualty Co.", naic: "99902", policy: "GL-TR-339027",
-      printed: { "Each occurrence": "$1,000,000", "General aggregate": "$2,000,000" },
-      req: { "Each occurrence": "$2,000,000", "General aggregate": "$4,000,000" } },
-    { id: 7, insured: "Pinecrest HVAC Services", line: "Auto", exp: "2027-01-15", eff: "2026-01-15",
-      insurer: "Storybook Workers Insurance Co.", naic: "99903", policy: "BA-PH-61904",
-      printed: { "Combined single limit": "$1,000,000" },
-      req: null },
-    { id: 8, insured: "Lanternfly Glazing Co.", line: "WC", exp: "2026-11-05", eff: "2025-11-05",
-      insurer: "Make-Believe Specialty Insurance Co.", naic: "99904", policy: "WC-LG-90215",
-      printed: { "E.L. each accident": "$1,000,000", "E.L. disease, policy limit": "$1,000,000" },
-      req: { "E.L. each accident": "$1,000,000", "E.L. disease, policy limit": "$1,000,000" } }
-  ];
-  // The three example rows of the downloadable workbook (Tracker sheet), as stored in the file.
-  var SHEET = [
-    { sub: "Ridgeline Framing Co. (fictional)", line: "GL", exp: "2027-03-31" },
-    { sub: "Lanternfly Glazing Co. (fictional)", line: "WC", exp: "2026-11-05" },
-    { sub: "Tumbleweed Roofing LLC (fictional)", line: "GL", exp: "2026-09-30" }
-  ];
-
-  var LABELS = { future: "Printed expiry: future", soon: "Printed expiry: within 30 days", past: "Printed expiry: passed" };
-  var CLASSES = { future: "st-future", soon: "st-soon", past: "st-past" };
-  var LINE_NAMES = { GL: "General liability", Auto: "Automobile liability", Umbrella: "Umbrella / excess", WC: "Workers' comp & employers' liability" };
-
+  document.body.classList.remove("js-off");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function startOfToday() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-  function parseDate(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
-  function fmt(s) { var p = s.split("-"); return p[1] + "/" + p[2] + "/" + p[0]; }
-  function daysTo(s) { return Math.round((parseDate(s) - startOfToday()) / 86400000); }
-  function status(expStr) { var d = daysTo(expStr); return d < 0 ? "past" : (d <= 30 ? "soon" : "future"); }
+  function parse(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function us(d) { return ("0" + (d.getMonth() + 1)).slice(-2) + "/" + ("0" + d.getDate()).slice(-2) + "/" + d.getFullYear(); }
+  function nice(d) { return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+  var today = startOfToday(), DAY = 86400000;
+  function st(days) { return days < 0 ? "past" : days <= 30 ? "soon" : "future"; }
+  var LABEL = { future: "Printed expiry date: future", soon: "Printed expiry date: within 30 days", past: "Printed expiry date passed" };
+
+  // Hero: the printed expiry date drives the readout and the reminder schedule.
+  var exp = document.getElementById("exp"), daysEl = document.getElementById("days"), statEl = document.getElementById("stat"), sched = document.getElementById("sched");
+  var start = new Date(today.getTime() + 19 * DAY);
+  exp.value = start.getFullYear() + "-" + ("0" + (start.getMonth() + 1)).slice(-2) + "-" + ("0" + start.getDate()).slice(-2);
+  document.getElementById("today").textContent = "Fictional sample certificate · today is " + nice(today);
+  function read() {
+    if (!exp.value) return;
+    var e = parse(exp.value), d = Math.round((e - today) / DAY), s = st(d);
+    var effD = new Date(e); effD.setFullYear(e.getFullYear() - 1);
+    document.getElementById("eff").textContent = us(effD);
+    daysEl.textContent = d === 0 ? "Expires today" : d > 0 ? d + (d === 1 ? " day left" : " days left") : Math.abs(d) + (d === -1 ? " day ago" : " days ago");
+    statEl.className = "stat s-" + s; statEl.textContent = LABEL[s];
+    var r1 = new Date(e.getTime() - 30 * DAY), r2 = new Date(e.getTime() - 7 * DAY);
+    function when(x) { return x < today ? "already due" : nice(x); }
+    sched.innerHTML =
+      "<li><span>First reminder drafted</span><span>" + when(r1) + "</span></li>" +
+      "<li><span>Second reminder drafted</span><span>" + when(r2) + "</span></li>" +
+      "<li><span>Printed expiry date</span><span>" + nice(e) + "</span></li>";
+  }
+  exp.addEventListener("input", read); read();
+
+  // Showcase row: the centred panel is lit and names itself.
+  var row = document.getElementById("row"), panels = [].slice.call(row.querySelectorAll(".panel"));
+  var nowT = document.getElementById("now-t"), nowP = document.getElementById("now-p");
+  function centre() {
+    var mid = row.getBoundingClientRect().left + row.clientWidth / 2, best = panels[0], bd = 1e9;
+    panels.forEach(function (p) { var r = p.getBoundingClientRect(), dd = Math.abs(r.left + r.width / 2 - mid); if (dd < bd) { bd = dd; best = p; } });
+    panels.forEach(function (p) { p.classList.toggle("on", p === best); });
+    nowT.textContent = best.getAttribute("data-t"); nowP.textContent = best.getAttribute("data-p");
+  }
+  var raf; row.addEventListener("scroll", function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(centre); });
+  var down = false, sx = 0, sl = 0;
+  row.addEventListener("pointerdown", function (e) { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = row.scrollLeft; row.style.scrollSnapType = "none"; });
+  window.addEventListener("pointerup", function () { if (!down) return; down = false; row.style.scrollSnapType = ""; });
+  window.addEventListener("pointermove", function (e) { if (down) row.scrollLeft = sl - (e.clientX - sx); });
+  row.addEventListener("keydown", function (e) { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); row.scrollBy({ left: (e.key === "ArrowRight" ? 1 : -1) * 500, behavior: reduce ? "auto" : "smooth" }); } });
+  centre();
+
+  // How it would work: the statement nearest the centre sets the stage state.
+  var stage = document.getElementById("stage"), steps = [].slice.call(document.querySelectorAll(".step"));
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { steps.forEach(function (s) { s.classList.toggle("on", s === en.target); }); stage.setAttribute("data-s", en.target.getAttribute("data-s")); } });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    steps.forEach(function (s) { io.observe(s); });
+  }
+
+  // Renewal calendar: months with printed expiry dates.
+  var DATA = [
+    ["Tumbleweed Roofing LLC", "General liability", "Placeholder Casualty Co.", "GL-TR-339027", "2026-09-30"],
+    ["Northfork Plumbing Inc.", "Workers' comp", "Storybook Workers Insurance Co.", "WC-NP-77310", "2026-10-12"],
+    ["Lanternfly Glazing Co.", "Workers' comp", "Make-Believe Specialty Insurance Co.", "WC-LG-90215", "2026-11-05"],
+    ["Bluebird Drywall & Paint LLC", "Automobile", "Placeholder Casualty Co.", "BA-44O7-2219, held for review", "2026-11-15"],
+    ["Copperleaf Electric", "General liability", "Imaginary Mutual Insurance Co.", "GL-CE-204118", "2026-11-20"],
+    ["Pinecrest HVAC Services", "Automobile", "Storybook Workers Insurance Co.", "BA-PH-61904", "2027-01-15"],
+    ["Ridgeline Framing Co.", "General liability", "Imaginary Mutual Insurance Co.", "GL-RF-100482", "2027-03-31"],
+    ["Sandhill Concrete Partners", "Umbrella", "Make-Believe Specialty Insurance Co.", "UMB-SC-5521", "2027-06-30"]
+  ];
+  var months = {};
+  DATA.forEach(function (r) { var k = r[4].slice(0, 7); (months[k] = months[k] || []).push(r); });
+  var keys = Object.keys(months).sort(), tabs = document.getElementById("tabs"), bands = document.getElementById("bands");
+  var thisMonth = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2);
+  // Open on the month of the next printed expiry date from today.
+  var next = DATA.map(function (r) { return r[4]; }).filter(function (d) { return parse(d) >= today; }).sort()[0];
+  var active = next ? next.slice(0, 7) : keys[keys.length - 1];
+  function mname(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" }); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  var SHORT = { future: "Future", soon: "Within 30 days", past: "Passed" };
-  function pill(st) { return '<span class="status ' + CLASSES[st] + '">' + LABELS[st] + '</span>'; }
-  function shortPill(st) { return '<span class="status ' + CLASSES[st] + '">' + SHORT[st] + '</span>'; }
-
-  var today = startOfToday();
-  document.getElementById("today-label").textContent =
-    "Today: " + today.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-
-  DATA.forEach(function (r) { r.status = status(r.exp); });
-
-  // Hero product shot: five rows of the same fictional data.
-  document.getElementById("shot-body").innerHTML = [1, 2, 8, 6, 5].map(function (id) {
-    var r = DATA.filter(function (x) { return x.id === id; })[0];
-    return '<tr><td>' + esc(r.insured) + ' <span class="fict">(fictional)</span></td>' +
-      '<td class="hide-sm">' + esc(r.line) + '</td><td class="hide-sm date">' + fmt(r.exp) + '</td><td>' + pill(r.status) + '</td></tr>';
-  }).join("");
-
-  // Workbook preview, evaluating the sheet's own formulas (days = expiry - today; 30-day window).
-  document.getElementById("sheet-body").innerHTML = SHEET.map(function (r) {
-    var d = daysTo(r.exp), st = status(r.exp);
-    var label = st === "past" ? "Printed expiry: passed" : (st === "soon" ? "Printed expiry: within 30 days" : "Printed expiry: future");
-    return '<tr class="' + (st === "past" ? "r-past" : st === "soon" ? "r-soon" : "") + '"><td>' + esc(r.sub) + '</td><td>' + esc(r.line) +
-      '</td><td class="calc">' + fmt(r.exp) + '</td><td class="calc">' + d + '</td><td>' + label + '</td></tr>';
-  }).join("");
-
-  var counts = { all: DATA.length, future: 0, soon: 0, past: 0 };
-  DATA.forEach(function (r) { counts[r.status]++; });
-  Object.keys(counts).forEach(function (k) {
-    var el = document.querySelector('[data-count="' + k + '"]');
-    if (el) el.textContent = counts[k];
-  });
-
-  var body = document.getElementById("coi-body");
-  var live = document.getElementById("live");
-  var detail = document.getElementById("detail");
-  var current = "all", selected = 2;
-
-  function render() {
-    var rows = DATA.filter(function (r) { return current === "all" || r.status === current; });
-    if (!rows.length) {
-      body.innerHTML = '<tr><td colspan="4" class="empty">No sample certificates with this status today.</td></tr>';
-    } else {
-      body.innerHTML = rows.map(function (r) {
-        return '<tr' + (r.id === selected ? ' class="sel"' : '') + '>' +
-          '<td class="first"><button type="button" class="row-btn" data-id="' + r.id + '" aria-controls="detail" aria-pressed="' + (r.id === selected) + '">' +
-            esc(r.insured) + '</button> <span class="fict">(fictional)</span>' +
-            (r.flagged ? '<span class="flag-tag">1 field flagged for review</span>' : '') + '</td>' +
-          '<td data-label="Line"><abbr title="' + esc(LINE_NAMES[r.line]) + '">' + esc(r.line) + '</abbr></td>' +
-          '<td data-label="Printed expiry" class="date">' + fmt(r.exp) + '</td>' +
-          '<td data-label="Printed expiry status">' + shortPill(r.status) + '</td>' +
-        '</tr>';
-      }).join("");
-    }
-    var label = current === "all" ? "all statuses" : LABELS[current].toLowerCase();
-    live.textContent = "Showing " + rows.length + " of " + DATA.length + " sample certificates, " + label + ".";
-    document.getElementById("table-caption").textContent =
-      "Fictional sample data. Showing " + rows.length + " of " + DATA.length + " certificates. Select a name for details.";
-  }
-
-  function showDetail(id, focus) {
-    var r = DATA.filter(function (x) { return x.id === id; })[0];
-    if (!r) return;
-    selected = id;
-    var rows = Object.keys(r.printed).map(function (k) {
-      var req = r.req ? r.req[k] : null;
-      return '<tr><th scope="row">' + esc(k) + '</th><td>' + esc(r.printed[k]) + '</td><td>' +
-        (req ? esc(req) : '<span class="na">None entered</span>') + '</td></tr>';
+  function drawTabs() {
+    tabs.innerHTML = keys.map(function (k) {
+      var n = months[k].length;
+      return '<button type="button" role="tab" class="tab" id="t-' + k + '" aria-controls="bands" aria-selected="' + (k === active) + '" tabindex="' + (k === active ? 0 : -1) + '" data-k="' + k + '"><span class="m">' + mname(k) + '</span><span class="c">' + n + (n === 1 ? " certificate" : " certificates") + '</span></button>';
     }).join("");
-    detail.innerHTML =
-      '<h3>' + esc(r.insured) + ' <span class="fict">(fictional)</span></h3>' +
-      '<p class="sub">' + esc(LINE_NAMES[r.line]) + ' · ' + pill(r.status) + '</p>' +
-      '<dl class="kv"><dt>Insurer</dt><dd>' + esc(r.insurer) + ' (fictional)</dd>' +
-      '<dt>NAIC</dt><dd>' + esc(r.naic) + ' (sample)</dd>' +
-      '<dt>Policy</dt><dd class="mono">' + esc(r.policy) + '</dd>' +
-      '<dt>Effective</dt><dd class="date">' + fmt(r.eff) + ' to ' + fmt(r.exp) + '</dd>' +
-      '<dt>Holder</dt><dd>' + esc(HOLDER) + '</dd></dl>' +
-      '<table class="compare"><caption class="visually-hidden">Printed values beside your entered requirements</caption>' +
-      '<thead><tr><th scope="col">Item</th><th scope="col">Printed on certificate</th><th scope="col">Your entered requirement</th></tr></thead>' +
-      '<tbody>' + rows + '</tbody></table>' +
-      '<p class="fine">Shown side by side for your own review. COI Trail does not judge whether one satisfies the other.</p>';
-    render();
-    if (focus) detail.focus();
   }
+  function drawBands() {
+    bands.setAttribute("aria-labelledby", "t-" + active);
+    bands.innerHTML = months[active].map(function (r) {
+      var e = parse(r[4]), d = Math.round((e - today) / DAY), s = st(d);
+      return '<div class="bandrow"><span class="d">' + e.toLocaleDateString("en-US", { month: "short", day: "2-digit" }) + '</span>' +
+        '<div><div class="t">' + esc(r[0]) + ' <span class="fict">(fictional)</span></div><div class="n">' + esc(r[1]) + ' · ' + esc(r[2]) + ' (fictional) · ' + esc(r[3]) + '</div></div>' +
+        '<span class="st s-' + s + '">' + LABEL[s] + '</span></div>';
+    }).join("");
+  }
+  function pick(k) { active = k; drawTabs(); drawBands(); document.getElementById("t-" + active).focus(); }
+  tabs.addEventListener("click", function (e) { var b = e.target.closest(".tab"); if (b) pick(b.getAttribute("data-k")); });
+  tabs.addEventListener("keydown", function (e) {
+    var i = keys.indexOf(active);
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") i = Math.min(keys.length - 1, i + 1);
+    else if (e.key === "ArrowUp" || e.key === "ArrowLeft") i = Math.max(0, i - 1); else return;
+    e.preventDefault(); pick(keys[i]);
+  });
+  drawTabs(); drawBands();
 
-  document.querySelectorAll(".filter-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      current = btn.getAttribute("data-filter");
-      document.querySelectorAll(".filter-btn").forEach(function (b) {
-        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
-      });
-      render();
-    });
+  // Pilot form: open an email with the answers filled in.
+  document.getElementById("pilot-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var co = document.getElementById("f-co").value.trim(), subs = document.getElementById("f-subs").value, kind = document.querySelector('input[name="kind"]:checked').value;
+    var body = "Hi COI Trail team,\n\nWe're interested in the pilot.\n\nCompany: " + (co || "(not given)") + "\nType: " + kind + "\nActive subs we collect certificates from: " + subs + "\n\n";
+    location.href = "mailto:team@getcoitrail.com?subject=" + encodeURIComponent("COI Trail pilot interest" + (co ? ": " + co : "")) + "&body=" + encodeURIComponent(body);
   });
 
-  body.addEventListener("click", function (e) {
-    var b = e.target.closest(".row-btn");
-    if (b) showDetail(+b.getAttribute("data-id"), true);
-  });
-
-  showDetail(selected, false);
+  // Entrances: each part rises once as it enters.
+  var risers = [].slice.call(document.querySelectorAll(".rise, .band"));
+  if (reduce || !("IntersectionObserver" in window)) { risers.forEach(function (r) { r.classList.add("in"); }); return; }
+  var ro = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); ro.unobserve(en.target); } }); }, { rootMargin: "0px 0px -12% 0px" });
+  risers.forEach(function (r, i) { r.style.transitionDelay = (i % 3) * 70 + "ms"; ro.observe(r); });
 })();
 </script>
 </body>
