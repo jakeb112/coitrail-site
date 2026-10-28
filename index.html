@@ -214,6 +214,78 @@
   .contact { background: #0E1416; border: 0; padding: 120px 0; margin-top: 136px; }
   .contact h2 { color: #FFFFFF; font-size: clamp(32px, 1.4rem + 2.6vw, 60px); }
   .contact p { color: #B6C0C4; }
+
+  /* v7: neumorphism (light half) */
+  :root { --neu: #E7EBEF; --neu-hi: #FFFFFF; --neu-lo: #C3CAD1;
+    --raise: 14px 14px 32px var(--neu-lo), -14px -14px 32px var(--neu-hi);
+    --raise-sm: 6px 6px 14px var(--neu-lo), -6px -6px 14px var(--neu-hi);
+    --press: inset 5px 5px 11px #C9D0D6, inset -5px -5px 11px #FFFFFF; }
+  body { background: var(--neu); }
+  .app { background: var(--neu); border: 0; border-radius: 26px; box-shadow: 0 60px 100px -50px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06), inset 0 1px 0 #fff; }
+  .app-bar { border-bottom: 0; padding: 16px 22px 6px; }
+  .side { background: transparent; border-right: 0; padding: 14px 14px 20px; }
+  .sub-btn { border-radius: 14px; margin-bottom: 8px; padding: 12px 14px; transition: box-shadow .25s ease, background .25s ease; position: relative; overflow: hidden; }
+  .sub-btn:hover { background: transparent; box-shadow: var(--raise-sm); }
+  .sub-btn[aria-current="true"] { background: var(--neu); box-shadow: var(--press); }
+  .sub-btn .bar { position: absolute; left: 14px; right: 14px; bottom: 5px; height: 2px; border-radius: 2px; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+  .sub-btn .bar.run { animation: tour var(--tour, 5s) linear forwards; }
+  @keyframes tour { to { transform: scaleX(1); } }
+  .main { padding: 18px 28px 30px 14px; }
+  .box { border: 0; border-radius: 18px; padding: 20px 22px; background: var(--neu); box-shadow: var(--raise-sm); }
+  .exp-row input { border: 0; border-radius: 10px; padding: 8px 12px; background: var(--neu); box-shadow: var(--press); }
+  .status, .mail .meta, .cmp th, .cmp td { border-color: #D3D9DE; }
+  .ui-btn { border: 0; border-radius: 10px; padding: 8px 14px; background: var(--neu); box-shadow: var(--raise-sm); }
+  .ui-btn.primary { background: var(--ink); box-shadow: 4px 4px 10px var(--neu-lo), -4px -4px 10px var(--neu-hi); }
+  .tour-btn { font: 500 13.5px var(--font); color: var(--ink); background: var(--neu); border: 0; border-radius: 999px; padding: 7px 14px; box-shadow: var(--raise-sm); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .tour-btn:active, .tour-btn[aria-pressed="true"] { box-shadow: var(--press); }
+  .app-bar .right { display: inline-flex; align-items: center; gap: 14px; }
+  .steps { gap: 32px; }
+  .steps li { background: var(--neu); border-radius: 26px; padding: 34px 30px 36px; box-shadow: var(--raise); transition: box-shadow .35s ease, transform .35s ease; }
+  .steps li:hover { transform: translateY(-4px); box-shadow: 20px 20px 44px var(--neu-lo), -20px -20px 44px var(--neu-hi); }
+  .ico { width: 58px; height: 58px; border-radius: 18px; box-shadow: var(--press); display: grid; place-items: center; margin-bottom: 26px; }
+  .ico svg { width: 26px; height: 26px; }
+  .nots { gap: 32px; }
+  .nots li { border-top: 0; background: var(--neu); border-radius: 26px; padding: 30px; box-shadow: var(--press); }
+  .sheet { border: 0; border-radius: 24px; background: var(--neu); box-shadow: var(--raise); padding: 10px; }
+  .sheet-scroll { border-radius: 14px; background: #fff; }
+  .sheet-bar { border-bottom: 0; }
+  .btn-primary { box-shadow: 6px 6px 16px rgba(160, 80, 20, .28), -6px -6px 16px rgba(255, 255, 255, .7); }
+  .hero .btn-primary, .contact .btn-primary, .nav .btn-primary { box-shadow: 0 10px 30px -10px rgba(255, 106, 19, .65); }
+  .btn-primary:active { box-shadow: inset 4px 4px 10px rgba(120, 50, 0, .35); transform: translateY(1px); }
+  .split .btn-secondary, .sec .btn-secondary { background: var(--neu); border: 0; box-shadow: var(--raise-sm); }
+
+  /* v7: motion */
+  .hero-band { position: relative; overflow: hidden; }
+  .hero-band::before, .hero-band::after { content: ""; position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .hero-band::before { width: 620px; height: 620px; right: -120px; top: -180px; background: rgba(255, 106, 19, .22); animation: drift 18s ease-in-out infinite alternate; }
+  .hero-band::after { width: 480px; height: 480px; left: -160px; bottom: 40px; background: rgba(60, 120, 140, .18); animation: drift 22s ease-in-out infinite alternate-reverse; }
+  @keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-140px, 120px) scale(1.15); } }
+  .hero > * { position: relative; z-index: 1; }
+  .w { display: inline-block; opacity: 0; transform: translateY(.45em) rotate(2deg); filter: blur(6px); animation: word .9s cubic-bezier(.2, .7, .1, 1) forwards; }
+  @keyframes word { to { opacity: 1; transform: none; filter: none; } }
+  .hero h1.split-done { animation: none; }
+  .main.swap > * { animation: fadeup .5s cubic-bezier(.2, .7, .1, 1) both; }
+  .main.swap > *:nth-child(2) { animation-delay: .06s; } .main.swap > *:nth-child(3) { animation-delay: .12s; }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .steps.reveal, .nots.reveal { opacity: 1; transform: none; }
+  .steps.reveal > li, .nots.reveal > li { opacity: 0; transform: translateY(34px) scale(.97); transition: opacity .8s cubic-bezier(.2, .7, .1, 1), transform .8s cubic-bezier(.2, .7, .1, 1), box-shadow .35s ease; }
+  .steps.reveal.in > li, .nots.reveal.in > li { opacity: 1; transform: none; }
+  .steps.reveal.in > li:hover { transform: translateY(-4px); }
+  .reveal.in > li:nth-child(2) { transition-delay: .12s; } .reveal.in > li:nth-child(3) { transition-delay: .24s; }
+  .steps.reveal.in > li:hover { transition-delay: 0s; }
+  .sheet.in tbody tr { animation: fadeup .6s cubic-bezier(.2, .7, .1, 1) both; }
+  .sheet.in tbody tr:nth-child(1) { animation-delay: .35s; } .sheet.in tbody tr:nth-child(2) { animation-delay: .5s; } .sheet.in tbody tr:nth-child(3) { animation-delay: .65s; }
+  @supports (animation-timeline: view()) {
+    .app { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    @keyframes settle { from { transform: perspective(1400px) rotateX(9deg) scale(.95); } to { transform: none; } }
+  }
+  @media (max-width: 760px) { .app-bar { flex-direction: column; align-items: flex-start; gap: 10px; } .app-bar .right { width: 100%; justify-content: space-between; } .main { padding: 16px; } .side { padding: 10px; } .sub-btn { margin-bottom: 0; } .hero-band::before { width: 360px; height: 360px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-band::before, .hero-band::after, .app, .main.swap > *, .sheet.in tbody tr, .sub-btn .bar.run { animation: none !important; }
+    .w { animation: none !important; opacity: 1; transform: none; filter: none; }
+    .steps.reveal > li, .nots.reveal > li { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+  .no-js .steps.reveal > li, .no-js .nots.reveal > li { opacity: 1; transform: none; }
 </style>
 </head>
 <body class="no-js">
@@ -253,7 +325,7 @@
     <div class="shot rise d3" id="demo">
       <h2 class="vh">See the fictional workflow</h2>
       <div class="app" role="group" aria-label="Fictional demo of the proposed workflow">
-        <div class="app-bar"><span><b>COI Trail</b> · Example Builders Group <span class="fict">(fictional)</span></span><span class="tag">Fictional sample data</span></div>
+        <div class="app-bar"><span><b>COI Trail</b> · Example Builders Group <span class="fict">(fictional)</span></span><span class="right"><button type="button" class="tour-btn" id="tour" aria-pressed="false">Pause tour</button><span class="tag">Fictional sample data</span></span></div>
         <div class="app-body">
           <div class="side" role="list" aria-label="Subcontractors" id="subs"></div>
           <div class="main" id="rec" aria-live="polite"></div>
@@ -268,9 +340,9 @@
       <h2 class="reveal" id="how-h">How the proposed pilot would work</h2>
       <p class="sec-intro reveal">An administrative service that records and reminds. Decisions about insurance stay with you and your broker.</p>
       <ol class="steps reveal">
-        <li><h3>Forward certificates when the pilot opens</h3><p>Send the certificates your subs give you to one dedicated inbox. Nothing new for your subs to learn.</p></li>
-        <li><h3>Record what is printed</h3><p>Insured, insurers and NAIC numbers, policy numbers, dates, printed limits and the holder, exactly as printed. Anything unclear is held for a person to check.</p></li>
-        <li><h3>Prepare reminder drafts for your review</h3><p>Before a printed expiry date, a draft asks the sub for an updated certificate, worded the way you approve. Nothing goes out without your approval.</p></li>
+        <li><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6A13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M5.5 5h13L20 13v6H4v-6z"/></svg></div><h3>Forward certificates when the pilot opens</h3><p>Send the certificates your subs give you to one dedicated inbox. Nothing new for your subs to learn.</p></li>
+        <li><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6A13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div><h3>Record what is printed</h3><p>Insured, insurers and NAIC numbers, policy numbers, dates, printed limits and the holder, exactly as printed. Anything unclear is held for a person to check.</p></li>
+        <li><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6A13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></div><h3>Prepare reminder drafts for your review</h3><p>Before a printed expiry date, a draft asks the sub for an updated certificate, worded the way you approve. Nothing goes out without your approval.</p></li>
       </ol>
     </div>
   </section>
@@ -371,7 +443,7 @@
       var k = st(days(s.exp));
       return '<button type="button" role="listitem" class="sub-btn" data-id="' + s.id + '" aria-current="' + (s.id === sel) + '">' +
         '<span class="nm">' + esc(s.name) + '</span><span class="dt num"><span class="dot d-' + k + '" aria-hidden="true"></span>' + us(parse(s.exp)) + '</span>' +
-        '<span class="ln">' + esc(s.line) + '</span></button>';
+        '<span class="ln">' + esc(s.line) + '</span><span class="bar" aria-hidden="true"></span></button>';
     }).join("");
   }
   function drawRec() {
@@ -403,16 +475,41 @@
           '<div class="acts"><span class="ui-btn primary">Approve wording</span><span class="ui-btn">Edit</span></div></div>' +
       '</div>';
     document.getElementById("exp").addEventListener("change", function (ev) {
-      if (!ev.target.value) return; s.exp = ev.target.value; drawSubs(); drawRec(); var bg = recEl.querySelector(".status .big"); if (bg) bg.classList.add("bump"); document.getElementById("exp").focus();
+      if (!ev.target.value) return; s.exp = ev.target.value; stopTour(); drawSubs(); drawRec(); var bg = recEl.querySelector(".status .big"); if (bg) bg.classList.add("bump"); document.getElementById("exp").focus();
     });
   }
-  subsEl.addEventListener("click", function (e) { var b = e.target.closest(".sub-btn"); if (!b) return; sel = b.getAttribute("data-id"); drawSubs(); drawRec(); });
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function swap() { recEl.classList.remove("swap"); void recEl.offsetWidth; recEl.classList.add("swap"); }
+  function tween(from) {
+    var el = recEl.querySelector(".status .big"); if (RM || !el || from === null) return;
+    var s = SUBS.filter(function (x) { return x.id === sel; })[0], to = days(s.exp), txt = el.textContent, t0 = null;
+    if (from === to || !/day/.test(txt)) return;
+    function fmt(n) { return n > 0 ? n + (n === 1 ? " day left" : " days left") : n === 0 ? "Expires today" : Math.abs(n) + (n === -1 ? " day ago" : " days ago"); }
+    (function step(ts) { t0 = t0 || ts; var k = Math.min(1, (ts - t0) / 650), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(Math.round(from + (to - from) * e)); if (k < 1) requestAnimationFrame(step); else el.textContent = txt; })(performance.now());
+  }
+  function select(id) { var prev = SUBS.filter(function (x) { return x.id === sel; })[0]; var from = prev ? days(prev.exp) : null; sel = id; drawSubs(); drawRec(); swap(); tween(from);
+    var cur = subsEl.querySelector('.sub-btn[aria-current="true"]'); if (cur && subsEl.scrollWidth > subsEl.clientWidth) subsEl.scrollTo({ left: cur.offsetLeft - 10, behavior: RM ? "auto" : "smooth" }); }
+
+  // Self-running tour: steps through the fictional subs while the demo is on screen. Stops for good on any interaction.
+  var TOUR = 5000, tourOn = !RM, tourTimer = null, inView = false, tourBtn = document.getElementById("tour"), app = document.querySelector(".app");
+  app.style.setProperty("--tour", TOUR + "ms");
+  function runBar() { var b = subsEl.querySelector('.sub-btn[aria-current="true"] .bar'); if (b && tourOn && inView) b.classList.add("run"); }
+  function schedule() { clearTimeout(tourTimer); if (!tourOn || !inView) return; runBar(); tourTimer = setTimeout(function () { var i = SUBS.map(function (x) { return x.id; }).indexOf(sel); select(SUBS[(i + 1) % SUBS.length].id); schedule(); }, TOUR); }
+  function stopTour() { tourOn = false; clearTimeout(tourTimer); tourBtn.textContent = "Play tour"; tourBtn.setAttribute("aria-pressed", "true"); [].forEach.call(subsEl.querySelectorAll(".bar"), function (b) { b.classList.remove("run"); }); }
+  tourBtn.addEventListener("click", function () { if (tourOn) stopTour(); else { tourOn = true; tourBtn.textContent = "Pause tour"; tourBtn.setAttribute("aria-pressed", "false"); schedule(); } });
+  if (RM) { tourBtn.textContent = "Play tour"; tourBtn.setAttribute("aria-pressed", "true"); }
+  ["pointerdown", "keydown", "focusin"].forEach(function (ev) { recEl.addEventListener(ev, function () { if (tourOn) stopTour(); }); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { inView = es[0].isIntersecting; if (inView) schedule(); else clearTimeout(tourTimer); }, { threshold: .35 }).observe(app);
+
+  subsEl.addEventListener("click", function (e) { var b = e.target.closest(".sub-btn"); if (!b) return; stopTour(); select(b.getAttribute("data-id")); });
   drawSubs(); drawRec();
 
   document.getElementById("sheet-body").innerHTML = SHEET.map(function (r) {
     var n = days(r[2]), k = st(n);
     return '<tr class="' + (k === "past" ? "r-past" : k === "soon" ? "r-soon" : "") + '"><td>' + esc(r[0]) + '</td><td>' + r[1] + '</td><td class="num">' + us(parse(r[2])) + '</td><td class="num">' + n + '</td><td>' + LABEL[k] + '</td></tr>';
   }).join("");
+  var h1 = document.querySelector(".hero h1");
+  if (!RM && h1) { h1.setAttribute("aria-label", h1.textContent); h1.classList.remove("rise"); h1.innerHTML = h1.textContent.split(" ").map(function (w, i) { return '<span class="w" aria-hidden="true" style="animation-delay:' + (i * 70) + 'ms">' + esc(w) + '</span>'; }).join(" "); }
   document.body.classList.remove("no-js");
   var rv = [].slice.call(document.querySelectorAll(".reveal"));
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { rv.forEach(function (el) { el.classList.add("in"); }); }
