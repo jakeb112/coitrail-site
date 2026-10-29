@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Read a Certificate of Insurance (ACORD 25) | COI Trail</title><meta name="description" content="A plain-English, box-by-box walkthrough of the ACORD 25 liability certificate for GCs: producer, insured, NAIC numbers, dates, limits, AI/SUBR boxes and more.">
+<link rel="canonical" href="https://coitrail.com/guides/how-to-read-a-certificate-of-insurance/"><meta property="og:title" content="How to Read a Certificate of Insurance (ACORD 25) | COI Trail"><meta property="og:description" content="A plain-English, box-by-box walkthrough of the ACORD 25 liability certificate for GCs: producer, insured, NAIC numbers, dates, limits, AI/SUBR boxes and more."><meta property="og:type" content="article">
+<link rel="preload" href="/fonts-v8/bricolage-grotesque-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts-v8/fonts.css"><style>
+:root{--ink:#0E1416;--body:#3A4449;--muted:#5B666B;--line:#DDE2E4;--accent:#FF6A13;--page:#FFFFFF;--soft:#F4F6F7;
+--font:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;--display:"Bricolage Grotesque","Hanken Grotesk",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--body);font:400 18px/1.65 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-underline-offset:3px}a:hover{color:#000}
+:focus-visible{outline:3px solid #1F6FEB;outline-offset:2px;border-radius:4px}
+.top{background:#0E1416}.top .w{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+.w{max-width:1200px;margin:0 auto;padding:0 48px}@media(max-width:760px){.w{padding:0 20px}}
+.brand{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font:800 20px var(--display);letter-spacing:-.03em}
+.mark{width:26px;height:26px;border-radius:6px;background:var(--accent);display:grid;place-items:center}
+.top nav{display:flex;gap:24px;align-items:center}.top nav a{color:#C3CCCF;text-decoration:none;font-size:15px}.top nav a:hover{color:#fff}
+.top nav .cta{background:var(--accent);color:#0E1416;font-weight:600;padding:9px 16px;border-radius:8px}
+@media(max-width:700px){.top nav a.opt{display:none}}
+main{max-width:760px;margin:0 auto;padding:64px 24px 40px}
+.crumb{font-size:15px;color:var(--muted);margin-bottom:18px}.crumb a{color:var(--muted)}
+h1,h2,h3{color:var(--ink);font-family:var(--display);letter-spacing:-.03em}
+h1{font-weight:800;font-size:clamp(34px,1.4rem + 2.4vw,54px);line-height:1.04;margin:0 0 24px}
+h2{font-weight:800;font-size:clamp(24px,1rem + 1vw,32px);line-height:1.15;margin:52px 0 14px}
+h3{font-weight:700;font-size:21px;margin:32px 0 8px;letter-spacing:-.02em}
+p,ul,ol{margin:0 0 18px}li{margin-bottom:8px}
+table{width:100%;border-collapse:collapse;margin:8px 0 26px;font-size:16px;display:block;overflow-x:auto}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink);background:var(--soft)}
+blockquote,pre{margin:0 0 22px;padding:18px 20px;background:var(--soft);border-left:4px solid var(--accent);border-radius:6px;font-size:16.5px}
+blockquote p:last-child{margin:0}code{font-size:.9em;background:var(--soft);padding:1px 5px;border-radius:4px}
+.end{margin-top:56px;padding:28px;border-radius:18px;background:#0E1416;color:#B6C0C4}
+.end a{color:#fff}.end .btn{display:inline-block;margin-top:12px;background:var(--accent);color:#0E1416;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:8px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:28px 0 48px;font-size:14.5px;color:var(--muted)}
+.list a{display:block;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.list b{display:block;color:var(--ink);font:800 24px/1.2 var(--display);letter-spacing:-.025em}.list span{color:var(--body)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Read a Certificate of Insurance: The ACORD 25, Box by Box", "description": "A plain-English, box-by-box walkthrough of the ACORD 25 liability certificate for GCs: producer, insured, NAIC numbers, dates, limits, AI/SUBR boxes and more.", "url": "https://coitrail.com/guides/how-to-read-a-certificate-of-insurance/", "publisher": {"@type": "Organization", "name": "COI Trail", "url": "https://coitrail.com/"}}</script></head>
+<body><header class="top"><div class="w"><a class="brand" href="/"><span class="mark" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="12" height="14" rx="1.5" stroke="#0E1416" stroke-width="1.9"/><path d="M6 6h6M6 9h6M6 12h3.5" stroke="#0E1416" stroke-width="1.9" stroke-linecap="round"/></svg></span>COI Trail</a>
+<nav aria-label="Primary"><a class="opt" href="/#demo">Demo</a><a href="/guides/">Guides</a><a class="opt" href="/#tracker">Free tracker</a><a class="cta" href="/#contact">Contact</a></nav></div></header>
+<main><div class="crumb"><a href="/guides/">Guides</a></div><article>
+  <h1>How to Read a Certificate of Insurance: The ACORD 25, Box by Box</h1>
+
+  <p>Most liability certificates that subs send to US general contractors are on the ACORD 25, the one-page "Certificate of Liability Insurance." ACORD is an insurance-industry standards organization that owns the form and licenses it to agents, brokers and insurers (<a href="https://www.acord.org/forms-pages/forms-participation-programs/forms-end-user-licenses" rel="noopener" target="_blank">ACORD forms licensing</a>). COI Trail isn't affiliated with ACORD. Below we describe what each part of the form is for, in our own words, so you can find information quickly and log it accurately.</p>
+
+  <h2>First: what a certificate is, and what it isn't</h2>
+  <p>A certificate of insurance is a summary, written by the sub's insurance agent, of policies that existed on the day it was issued. It doesn't change those policies. The NCOIL model act, which some states have written into their own laws (Rhode Island's version is <a href="https://webserver.rilegislature.gov/Statutes/TITLE27/27-78/27-78-4.htm" rel="noopener" target="_blank">R.I. Gen. Laws chapter 27-78</a>), says a certificate can't amend, extend or alter the policy it refers to, and can't give anyone rights beyond what the policy provides (<a href="https://ncoil.org/wp-content/uploads/2025/12/Certificates-Model-re-adopted-7-16-22.pdf" rel="noopener" target="_blank">NCOIL Certificates of Insurance Model Act, Sections 3-4</a>). The ACORD 25 says something similar in the notice box at the top of the page.</p>
+  <p>So read a certificate as a record of what it prints. Questions about what a policy actually does, such as whether a claim would be paid or how an endorsement works, go to your broker or to the policy and its endorsements. Neither this guide nor a certificate can answer them.</p>
+
+  <h2>The header: date and the notice box</h2>
+  <p><strong>Date (top right).</strong> The date the agent issued the certificate. It's not the start or end of any policy. A certificate dated last year can still print policy dates that run through next year. All it tells you is when the snapshot was taken.</p>
+  <p><strong>The notice box.</strong> Just under the title, a block of capital letters says the certificate is for information only, confers no rights on the holder, and doesn't change the policies. It also says that if the holder is meant to be an additional insured, or if subrogation is waived, the policy needs the relevant endorsement, and the certificate doesn't take its place. Read it once in full. It frames everything else on the page.</p>
+
+  <h2>Producer</h2>
+  <p>The <strong>producer</strong> is the insurance agency or broker that issued the certificate, not the sub. This box gives the agency's name and address, often with a contact name, phone number and email. If something looks wrong, or you need a reissued copy or an endorsement, contact this office (and copy the sub).</p>
+
+  <h2>Insured</h2>
+  <p>The <strong>insured</strong> box shows the name and address of the business the policies were issued to. Compare it with the legal name on your subcontract. Watch for a DBA, a parent company or a different spelling. If the names don't line up, ask the sub and their agent which entity holds the policies, and talk to your broker if it matters to your contract.</p>
+
+  <h2>Insurers and NAIC numbers</h2>
+  <p>On the right side of the top section is a list of insurers labeled with letters, usually A through F. Each line gives the insurance company's name and its <strong>NAIC number</strong>. Lower on the form, each policy row has an <strong>INSR LTR</strong> (insurer letter) column. That letter tells you which listed company issued that policy. One certificate can list different insurers for GL, auto and workers' comp.</p>
+  <p>The NAIC number is a company code assigned through the National Association of Insurance Commissioners. You can look a company up by name or code with the NAIC's free <a href="https://content.naic.org/cis_consumer_information.htm" rel="noopener" target="_blank">Consumer Insurance Search</a>, which shows licensing, complaint and financial information by state. Match the name and code together, since related companies can have similar names. Questions about an insurer go to your broker or state insurance department.</p>
+
+  <h2>The coverages grid: one row per policy</h2>
+  <p>The middle of the form is a table. Above it, a short statement explains that the policies listed were issued for the periods shown, and that the limits shown may have been reduced by paid claims and are subject to the policies' terms. Each row is one type of policy, and each row has the same columns:</p>
+  <table>
+    <thead>
+      <tr><th>Column</th><th>What it shows</th><th>What to log</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>INSR LTR</td><td>Which insurer from the A-F list issued this policy</td><td>The insurer name, as printed</td></tr>
+      <tr><td>Type of insurance</td><td>The policy line, with checkboxes for options</td><td>GL, Auto, Umbrella/Excess, WC, Other</td></tr>
+      <tr><td>ADDL INSD</td><td>A mark showing the agent's note about additional insureds on that line</td><td>Y/N as printed</td></tr>
+      <tr><td>SUBR WVD</td><td>A mark showing the agent's note about waiver of subrogation on that line</td><td>Y/N as printed</td></tr>
+      <tr><td>Policy number</td><td>The insurer's policy number</td><td>Exactly as printed</td></tr>
+      <tr><td>Policy eff / Policy exp</td><td>Start and end dates of the policy period</td><td>Both dates. The expiry is the one you track</td></tr>
+      <tr><td>Limits</td><td>Dollar amounts for that policy</td><td>Each amount, with its label</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Commercial general liability row</h3>
+  <p>Checkboxes show whether the policy is written on a <strong>claims-made</strong> or <strong>occurrence</strong> basis, and whether the general aggregate applies per policy, per project or per location. The limits side lists separate amounts, typically each occurrence, damage to rented premises, medical expense, personal and advertising injury, general aggregate, and products/completed operations aggregate. Log each one with its label. What they mean for a claim is a question for your broker.</p>
+
+  <h3>Automobile liability row</h3>
+  <p>Checkboxes show which kinds of vehicles the agent has marked, such as any auto, owned autos only, scheduled, hired, or non-owned. Limits may print as one combined single limit, or split into bodily injury and property damage amounts. Log what's marked and what's printed.</p>
+
+  <h3>Umbrella / excess liability row</h3>
+  <p>This row shows whether it's an umbrella or excess policy, on an occurrence or claims-made basis, with an each-occurrence amount, an aggregate, and sometimes a deductible or retention. Log its dates separately from the policies beneath it.</p>
+
+  <h3>Workers' compensation and employers' liability row</h3>
+  <p>This row usually shows a "per statute" box, a yes/no question about whether owners or officers are excluded, and three employers' liability amounts (each accident, disease per employee, disease policy limit). Log the boxes and amounts as printed. Questions about state workers' comp rules go to the sub's agent, your broker, or the state.</p>
+
+  <h3>The blank row</h3>
+  <p>The last row is left open for other policy types. Log it as "Other" with the name the agent typed.</p>
+
+  <h2>Description of operations / locations / vehicles</h2>
+  <p>This free-text box is where agents add notes, such as the project name or address, a job number, or a reference to endorsement forms. Sometimes it continues on an attached remarks page. Read it, and copy any project reference into your tracker. Keep in mind that wording here is still part of a summary, and the notice box says it doesn't replace an endorsement. If your contract calls for a specific endorsement, ask for a copy of it, and send questions about its wording to your broker.</p>
+
+  <h2>Certificate holder</h2>
+  <p>The bottom-left box holds the name and address of whoever the certificate was issued to, which is usually you. Being the certificate holder means you received the summary. It doesn't make you an insured. Check your legal name and address. A typo means asking the agent to reissue.</p>
+
+  <h2>Cancellation</h2>
+  <p>The bottom-right box covers what happens if a listed policy is cancelled before its expiry date. Older editions said the insurer would "endeavor to mail" notice a set number of days in advance. When ACORD revised the form around 2009-2010, that promise was replaced with wording that points to the policy itself (<a href="https://www.dfs.ny.gov/insurance/ogco2010/rg101116.htm" rel="noopener" target="_blank">NY DFS opinion 10-11-16</a>; <a href="https://content.aia.org/sites/default/files/2017-05/ACORDChanges_062414a.pdf" rel="noopener" target="_blank">AIA summary of the ACORD changes</a>). The NCOIL model act takes the same approach: a certificate holder gets notice of cancellation only if the policy or an endorsement provides it (<a href="https://ncoil.org/wp-content/uploads/2025/12/Certificates-Model-re-adopted-7-16-22.pdf" rel="noopener" target="_blank">Section 5</a>).</p>
+  <p>In practice, this means you shouldn't count on hearing about a cancellation through the certificate. Watch the printed dates yourself, and ask your broker if you want notice rights.</p>
+
+  <h2>Authorized representative and the footer</h2>
+  <p>The signature line is for someone at the agency. The footer shows ACORD's copyright and the edition date.</p>
+
+  <h2>A quick reading order</h2>
+  <p>Date issued and producer, then the insured name against your subcontract, then each policy row (insurer letter, policy number, dates, limits, ADDL INSD and SUBR WVD marks), then the description box, then the certificate holder spelling. Log it all, one row per policy line. Our guide on <a href="/guides/how-to-track-subcontractor-certificates-of-insurance/">how to track subcontractor certificates of insurance</a> covers the rest.</p>
+
+  <h2>Log it in the free tracker</h2>
+  <p>COI Trail's <a href="/coi-tracker-template.xlsx" download>free Excel COI tracker</a> has a column for each of the fields above and counts the days to each printed expiry date. We're also putting together a small founding pilot of a done-for-you tracking service. If you'd like to hear about it, email <a href="mailto:team@getcoitrail.com">team@getcoitrail.com</a>.</p>
+
+  <p><em>Not a determination of coverage, endorsement or contract compliance. This guide is general information, not insurance or legal advice. A certificate is a summary and doesn't change the policy. For coverage questions, talk to your broker or read the policy itself.</em></p>
+</article><div class="end"><b style="color:#fff;font:800 22px var(--display)">Free COI tracker (Excel)</b><br>One row per policy line, days to printed expiry and a reminder email tab. No sign-up.<br><a class="btn" href="/coi-tracker-template.xlsx" download>Download the tracker</a></div></main>
+<footer><div class="w">COI Trail · <a href="/">Home</a> · <a href="/guides/">Guides</a> · <a href="mailto:team@getcoitrail.com">team@getcoitrail.com</a><br>Extracted from certificates as printed. Not a determination of coverage, endorsement or contract compliance.</div></footer>
+</body></html>
